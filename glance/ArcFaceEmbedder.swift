@@ -19,15 +19,15 @@ enum ArcFaceEmbedderError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .modelNotFound:
-            return "ArcFace.mlpackage/mlmodelc not found in the app bundle. Run tools/convert_arcface.py, then add glance/Models/ArcFace.mlpackage to the Xcode project."
+            return "앱 번들에서 ArcFace.mlpackage/mlmodelc를 찾을 수 없어요. tools/convert_arcface.py를 실행한 뒤 glance/Models/ArcFace.mlpackage를 Xcode 프로젝트에 추가하세요."
         case .modelLoadFailed(let detail):
-            return "Failed to load the ArcFace Core ML model: \(detail)"
+            return "ArcFace Core ML 모델을 불러오지 못했어요: \(detail)"
         case .pixelBufferCreationFailed:
-            return "Couldn't prepare the aligned face image for Core ML."
+            return "Core ML용 정렬된 얼굴 이미지를 준비할 수 없어요."
         case .unexpectedInputSize(let got, let expected):
-            return "ArcFaceEmbedder expects a \(expected)x\(expected) aligned image, got \(got.0)x\(got.1). Run the face through FaceAligner first."
+            return "ArcFaceEmbedder에는 \(expected)x\(expected) 정렬 이미지가 필요하지만 \(got.0)x\(got.1) 이미지를 받았어요. 먼저 FaceAligner로 얼굴을 정렬하세요."
         case .unexpectedOutput(let detail):
-            return "ArcFace model produced an unexpected output: \(detail)"
+            return "ArcFace 모델이 예상치 못한 출력을 냈어요: \(detail)"
         }
     }
 }
@@ -106,10 +106,10 @@ nonisolated final class ArcFaceEmbedder: FaceEmbedder, @unchecked Sendable {
         let output = try model.prediction(from: input)
 
         guard let multiArray = output.featureValue(for: Self.outputName)?.multiArrayValue else {
-            throw ArcFaceEmbedderError.unexpectedOutput("no '\(Self.outputName)' output found")
+            throw ArcFaceEmbedderError.unexpectedOutput("'\(Self.outputName)' 출력이 없어요")
         }
         guard multiArray.count == embeddingDimension else {
-            throw ArcFaceEmbedderError.unexpectedOutput("expected \(embeddingDimension) floats, got \(multiArray.count)")
+            throw ArcFaceEmbedderError.unexpectedOutput("float \(embeddingDimension)개가 필요하지만 \(multiArray.count)개를 받았어요")
         }
 
         let raw = Self.floatVector(from: multiArray)

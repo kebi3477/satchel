@@ -40,7 +40,7 @@ final class FaceUnlockCoordinator {
     /// frames before giving the failure animation.
     private let wrongFaceGraceDuration: Duration = .seconds(2)
 
-    private(set) var statusMessage = "Idle"
+    private(set) var statusMessage = "대기 중"
     private(set) var lastOutcome: String?
 
     private var hasArmedForCurrentLock = false
@@ -114,11 +114,11 @@ final class FaceUnlockCoordinator {
         guard NotchGeometry.preferredScreen() != nil else { return }
 
         guard SecureCredentialManager.isSessionUnlocked else {
-            statusMessage = "Face unlock is on, but the session is locked — authenticate once from Password settings first."
+            statusMessage = "얼굴 잠금 해제가 켜져 있지만 세션이 잠겨 있어요. 먼저 암호 설정에서 한 번 인증해 주세요."
             return
         }
         guard SecureCredentialManager.hasStoredPassword() else {
-            statusMessage = "Face unlock is on, but no password is stored yet."
+            statusMessage = "얼굴 잠금 해제가 켜져 있지만 아직 저장된 암호가 없어요."
             return
         }
 
@@ -251,7 +251,7 @@ final class FaceUnlockCoordinator {
         if showsUI {
             NotchOverlayController.shared.beginScanning()
         }
-        statusMessage = "Looking for your face…"
+        statusMessage = "얼굴을 찾는 중…"
 
         let outcome = await observeScanWindow(
             deadline: Date().addingTimeInterval(scanWindowDuration),
@@ -270,28 +270,28 @@ final class FaceUnlockCoordinator {
                 NotchOverlayController.shared.finish(success: true)
             }
         case .consistentlyWrongFace:
-            statusMessage = "Face not recognized."
+            statusMessage = "얼굴을 인식하지 못했어요."
             if showsUI {
                 NotchOverlayController.shared.finish(success: false)
-                statusMessage = "Face not recognized — hover the notch to try again."
+                statusMessage = "얼굴을 인식하지 못했어요. 노치에 포인터를 올려 다시 시도해 주세요."
                 scheduleAutoRetryIfEnabled(after: NotchOverlayController.shared.failureHoldDuration)
             } else {
                 scheduleAutoRetryIfEnabled(after: headlessRetryDelay)
             }
         case .spoofSuspected:
-            statusMessage = "Couldn't confirm a live face."
+            statusMessage = "실물 얼굴인지 확인하지 못했어요."
             if showsUI {
                 NotchOverlayController.shared.finish(success: false)
-                statusMessage = "Couldn't confirm a live face — hover the notch to try again."
+                statusMessage = "실물 얼굴인지 확인하지 못했어요. 노치에 포인터를 올려 다시 시도해 주세요."
                 scheduleAutoRetryIfEnabled(after: NotchOverlayController.shared.failureHoldDuration)
             } else {
                 scheduleAutoRetryIfEnabled(after: headlessRetryDelay)
             }
         case .noResolution:
-            statusMessage = "No face detected."
+            statusMessage = "얼굴이 감지되지 않았어요."
             if showsUI {
                 // No explicit collapse call: NotchOverlayController's own scanning timeout fires on the same mark and collapses itself.
-                statusMessage = "No face detected — hover the notch to try again."
+                statusMessage = "얼굴이 감지되지 않았어요. 노치에 포인터를 올려 다시 시도해 주세요."
                 scheduleAutoRetryIfEnabled(after: NotchOverlayController.shared.collapseAnimationDuration)
             } else {
                 scheduleAutoRetryIfEnabled(after: headlessRetryDelay)
@@ -407,7 +407,7 @@ final class FaceUnlockCoordinator {
             }
 
             if let readyMatch, livenessConfirmed {
-                statusMessage = "Recognized — unlocking…"
+                statusMessage = "인식됨 — 잠금 해제 중…"
                 let livenessNote = livenessEnabled
                     ? (confirmingCue.map { "live via \($0.title)" } ?? "liveness clear")
                     : "liveness off"

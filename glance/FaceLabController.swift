@@ -70,7 +70,7 @@ final class FaceLabController {
         livenessAnalyzer.reset()
         currentLiveness = .empty
         currentGeometry = .empty
-        log("Liveness cues reset.")
+        log("실물 확인 신호를 재설정했어요.")
     }
 
     var enrollName: String = ""
@@ -94,9 +94,9 @@ final class FaceLabController {
         }
         store.reloadIfUnlocked()
         if pipeline.usingFallbackEmbedder {
-            log("ArcFace unavailable (\(pipeline.fallbackReason ?? "unknown reason")) — using Vision Feature Print instead.")
+            log("ArcFace 사용 불가 (\(pipeline.fallbackReason ?? "알 수 없는 이유")) — 대신 Vision Feature Print를 사용해요.")
         } else {
-            log("Using \(pipeline.embedder.name).")
+            log("\(pipeline.embedder.name) 사용 중.")
         }
     }
 
@@ -105,7 +105,7 @@ final class FaceLabController {
         if let error = camera.errorMessage {
             log(error)
         } else {
-            log("Camera started.")
+            log("카메라를 시작했어요.")
         }
     }
 
@@ -117,7 +117,7 @@ final class FaceLabController {
         currentLiveness = .empty
         currentGeometry = .empty
         lastLivenessFrame = nil
-        log("Camera stopped.")
+        log("카메라를 중지했어요.")
     }
 
     /// Mirrors `POCController.unlockSession()` so Face Lab can unlock the session without leaving this page.
@@ -125,10 +125,10 @@ final class FaceLabController {
         sessionError = nil
         do {
             try await Task.detached(priority: .userInitiated) {
-                try SecureCredentialManager.unlockSession(reason: "Authenticate to use Face Lab")
+                try SecureCredentialManager.unlockSession(reason: "Face Lab을 사용하려면 인증하세요")
             }.value
             store.reloadIfUnlocked()
-            log("Session unlocked.")
+            log("세션 잠금을 해제했어요.")
         } catch {
             sessionError = error.localizedDescription
         }
@@ -170,7 +170,7 @@ final class FaceLabController {
         } catch {
             detectedFaces = []
             currentResult = nil
-            log("Detection error: \(error.localizedDescription)")
+            log("감지 오류: \(error.localizedDescription)")
         }
     }
 
@@ -178,12 +178,12 @@ final class FaceLabController {
 
     func captureSample() {
         guard let result = currentResult else {
-            log("No face detected — can't capture a sample.")
+            log("감지된 얼굴이 없어 샘플을 캡처할 수 없어요.")
             return
         }
         let trimmedName = enrollName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else {
-            log("Enter a name before capturing a sample.")
+            log("샘플을 캡처하기 전에 이름을 입력하세요.")
             return
         }
         do {
@@ -193,18 +193,18 @@ final class FaceLabController {
                 embedder: pipeline.embedder,
                 quality: result.quality
             )
-            log("Captured sample for \"\(trimmedName)\" (\(result.embedding.count)-dim, \(result.alignmentTier.rawValue), quality \(Self.qualityLabel(result.quality))).")
+            log("\"\(trimmedName)\" 샘플을 캡처했어요 (\(result.embedding.count)차원, \(result.alignmentTier.rawValue), 품질 \(Self.qualityLabel(result.quality))).")
         } catch {
-            log("Couldn't save sample: \(error.localizedDescription)")
+            log("샘플을 저장할 수 없어요: \(error.localizedDescription)")
         }
     }
 
     func deleteIdentity(_ identity: FaceIdentity) {
         do {
             try store.delete(identity)
-            log("Deleted \"\(identity.name)\".")
+            log("\"\(identity.name)\"을(를) 삭제했어요.")
         } catch {
-            log("Couldn't delete: \(error.localizedDescription)")
+            log("삭제할 수 없어요: \(error.localizedDescription)")
         }
     }
 
@@ -220,19 +220,19 @@ final class FaceLabController {
     /// two live sessions with different configurations.
     func startFullOnboarding() {
         camera.stop()
-        log("Starting the full onboarding flow.")
+        log("전체 온보딩을 시작해요.")
         OnboardingController.startFlow()
     }
 
     func startAddIdentity() {
         camera.stop()
-        log("Starting guided enrollment for a new identity.")
+        log("새 얼굴의 안내 등록을 시작해요.")
         OnboardingController.startAddIdentity()
     }
 
     func startRecapture(of identity: FaceIdentity) {
         camera.stop()
-        log("Starting guided re-capture of \"\(identity.name)\".")
+        log("\"\(identity.name)\"의 안내 재캡처를 시작해요.")
         OnboardingController.startRecapture(of: identity)
     }
 
@@ -245,13 +245,13 @@ final class FaceLabController {
 
     func recognize() {
         guard let result = currentResult else {
-            log("No face detected — can't recognize.")
+            log("감지된 얼굴이 없어 인식할 수 없어요.")
             recognitionResults = []
             bestMatch = nil
             return
         }
         guard !store.identities.isEmpty else {
-            log("No enrolled identities yet — capture a sample first.")
+            log("아직 등록된 얼굴이 없어요 — 먼저 샘플을 캡처하세요.")
             recognitionResults = []
             bestMatch = nil
             return
@@ -274,9 +274,9 @@ final class FaceLabController {
         }
 
         if let best = scored.first {
-            let verdict = (bestMatch != nil) ? "MATCH" : "no match"
-            let staleNote = best.identity.isStale(comparedTo: embedder) ? " [STALE — re-enroll under current model]" : ""
-            log("Recognize: best = \(best.identity.name) centroid=\(String(format: "%.3f", best.centroidSimilarity)) max=\(String(format: "%.3f", best.maxSampleSimilarity)) -> \(verdict)\(staleNote)")
+            let verdict = (bestMatch != nil) ? "일치" : "불일치"
+            let staleNote = best.identity.isStale(comparedTo: embedder) ? " [오래됨 — 현재 모델로 다시 등록 필요]" : ""
+            log("인식: 최고 = \(best.identity.name) centroid=\(String(format: "%.3f", best.centroidSimilarity)) max=\(String(format: "%.3f", best.maxSampleSimilarity)) -> \(verdict)\(staleNote)")
         }
     }
 
@@ -289,11 +289,11 @@ final class FaceLabController {
     /// threshold slider actually gates on).
     func recordCalibrationSample(isGenuine: Bool) {
         guard let top = recognitionResults.first else {
-            log("Nothing to record — run Identify first.")
+            log("기록할 결과가 없어요 — 먼저 식별을 실행하세요.")
             return
         }
         calibrationSamples.append(CalibrationSample(centroidSimilarity: top.centroidSimilarity, isGenuine: isGenuine))
-        log("Calibration: recorded \(isGenuine ? "genuine" : "impostor") sample at \(String(format: "%.3f", top.centroidSimilarity)).")
+        log("보정: \(isGenuine ? "본인" : "타인") 샘플을 \(String(format: "%.3f", top.centroidSimilarity))에 기록했어요.")
     }
 
     func clearCalibrationSamples() {

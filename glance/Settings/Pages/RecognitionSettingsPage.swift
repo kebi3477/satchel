@@ -44,8 +44,8 @@ struct RecognitionSettingsPage: View {
     private var lockedState: some View {
         SettingsEmptyStateView(
             icon: "lock.fill",
-            message: "Session locked",
-            buttonTitle: isUnlocking ? "Authenticating…" : "Unlock session",
+            message: "세션 잠김",
+            buttonTitle: isUnlocking ? "인증 중…" : "세션 열기",
             isButtonEnabled: !isUnlocking,
             caption: sessionError,
             action: unlock
@@ -58,7 +58,7 @@ struct RecognitionSettingsPage: View {
         VStack(alignment: .leading, spacing: 20) {
             SettingsGroup {
                 SettingsOptionSliderRowContent(
-                    title: "Match confidence",
+                    title: "일치 신뢰도",
                     stepLabels: MatchConfidenceLevel.allCases.map(\.title),
                     index: matchConfidenceIndex,
                     stopCount: MatchConfidenceLevel.allCases.count
@@ -67,7 +67,7 @@ struct RecognitionSettingsPage: View {
                 SettingsGroupDivider()
 
                 SettingsOptionSliderRowContent(
-                    title: "Detection distance",
+                    title: "인식 거리",
                     stepLabels: DetectionDistanceLevel.allCases.map(\.title),
                     index: detectionDistanceIndex,
                     stopCount: DetectionDistanceLevel.allCases.count
@@ -75,11 +75,11 @@ struct RecognitionSettingsPage: View {
             }
 
             VStack(alignment: .leading, spacing: 8) {
-                SettingsSectionTitle(text: "Liveness")
+                SettingsSectionTitle(text: "실물 확인")
                 SettingsGroup {
                     SettingsRowContent(
-                        title: "Liveness detection",
-                        subtitle: "Checks that you're a live person, not a photo. May increase unlock time.",
+                        title: "실물 확인 사용",
+                        subtitle: "사진이 아닌 실제 사람인지 확인해요. 잠금 해제 시간이 늘어날 수 있어요.",
                         subtitleMaxWidth: SettingsMetrics.rowSubtitleMaxWidth
                     ) {
                         GlanceToggle(isOn: $settings.livenessChecksEnabled)
@@ -142,9 +142,9 @@ private enum MatchConfidenceLevel: Int, CaseIterable {
 
     var title: String {
         switch self {
-        case .lessStrict: return "Less strict"
-        case .standard: return "Default"
-        case .moreStrict: return "More strict"
+        case .lessStrict: return "느슨하게"
+        case .standard: return "기본"
+        case .moreStrict: return "엄격하게"
         }
     }
 
@@ -177,9 +177,9 @@ private enum DetectionDistanceLevel: Int, CaseIterable {
 
     var title: String {
         switch self {
-        case .close: return "Close"
-        case .standard: return "Default"
-        case .far: return "Far"
+        case .close: return "가까이"
+        case .standard: return "기본"
+        case .far: return "멀리"
         }
     }
 

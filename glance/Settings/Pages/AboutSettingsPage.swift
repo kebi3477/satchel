@@ -21,7 +21,7 @@ struct AboutSettingsPage: View {
         let info = Bundle.main.infoDictionary
         let short = info?["CFBundleShortVersionString"] as? String ?? "1.0"
         let build = info?["CFBundleVersion"] as? String ?? "1"
-        return "Version \(short) (\(build))"
+        return "버전 \(short) (\(build))"
     }
 
     var body: some View {
@@ -47,8 +47,8 @@ struct AboutSettingsPage: View {
 
         SettingsGroup {
             SettingsActionRowContent(
-                title: "Send Feedback",
-                buttonTitle: "Send"
+                title: "피드백 보내기",
+                buttonTitle: "보내기"
             ) {
                 if let url = URL(string: "https://tryglance.app/feedback") {
                     NSWorkspace.shared.open(url)

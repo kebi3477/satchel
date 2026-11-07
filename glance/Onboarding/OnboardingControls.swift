@@ -76,7 +76,7 @@ struct PermissionRow: View {
             Spacer(minLength: 4)
 
             Button(action: grant) {
-                Text(granted ? "Granted" : "Grant")
+                Text(granted ? "허용됨" : "허용")
                     .font(GlanceTheme.Font.grantLabel)
                     .foregroundStyle(GlanceTheme.textPrimary)
                     .frame(width: OnboardingMetrics.grantButtonSize.width, height: OnboardingMetrics.grantButtonSize.height)
@@ -109,7 +109,7 @@ struct CameraSelectionPill: View {
     var body: some View {
         HStack {
             Menu {
-                Button("System default") { onSelect(nil) }
+                Button("시스템 기본값") { onSelect(nil) }
                 ForEach(devices) { device in
                     Button(device.name) { onSelect(device.id) }
                 }

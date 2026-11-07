@@ -37,11 +37,11 @@ enum LivenessCue: String, CaseIterable, Hashable, Identifiable {
 
     nonisolated var title: String {
         switch self {
-        case .glossGlare: return "Gloss/glare"
-        case .deviceDetected: return "Device detected"
-        case .flatVs3D: return "Flat vs 3D"
-        case .depthPose: return "Depth/pose"
-        case .blink: return "Blink"
+        case .glossGlare: return "반사광"
+        case .deviceDetected: return "기기 감지"
+        case .flatVs3D: return "평면 vs 입체"
+        case .depthPose: return "깊이/자세"
+        case .blink: return "눈 깜빡임"
         }
     }
 
@@ -55,11 +55,11 @@ enum LivenessCue: String, CaseIterable, Hashable, Identifiable {
     /// One-line explanation of what firing actually means, for Face Lab.
     nonisolated var explanation: String {
         switch self {
-        case .glossGlare: return "Large flat specular highlight — glass/screen glare rather than skin's small scattered shine."
-        case .deviceDetected: return "A device-shaped rectangle overlaps the face — a phone or tablet held up."
-        case .flatVs3D: return "Held-out nose points miss the plane fit — the face has real depth."
-        case .depthPose: return "Nose offset tracks head yaw — the nose sits off the eye plane, so this isn't flat."
-        case .blink: return "Eye aspect ratio dipped and recovered — a photo cannot blink."
+        case .glossGlare: return "넓고 평평한 반사광이에요. 피부의 작고 흩어진 광택이 아니라 유리나 화면의 반사예요."
+        case .deviceDetected: return "기기 모양의 사각형이 얼굴과 겹쳐요. 휴대폰이나 태블릿을 들고 있는 상태예요."
+        case .flatVs3D: return "코 지점이 평면에서 벗어나요. 얼굴에 실제 깊이가 있어요."
+        case .depthPose: return "고개를 돌리는 방향에 따라 코 위치가 달라져요. 코가 눈 평면 밖에 있으므로 평면이 아니에요."
+        case .blink: return "눈 종횡비가 줄었다가 돌아왔어요. 사진은 눈을 깜빡일 수 없어요."
         }
     }
 }
@@ -78,15 +78,15 @@ enum LivenessMode: String, CaseIterable, Identifiable, Sendable {
 
     var title: String {
         switch self {
-        case .light: return "Light"
-        case .heavy: return "Heavy"
+        case .light: return "기본"
+        case .heavy: return "강력"
         }
     }
 
     var summary: String {
         switch self {
-        case .light: return "Only rejects obvious spoofs."
-        case .heavy: return "Also requires proof of a real face."
+        case .light: return "명백한 위장만 차단해요."
+        case .heavy: return "실제 얼굴이라는 증거도 요구해요."
         }
     }
 }
@@ -160,9 +160,9 @@ enum LivenessDecision: Equatable {
     var denialReason: String? {
         guard case .denied(let cue) = self else { return nil }
         switch cue {
-        case .glossGlare: return "Screen glare detected — this looks like a photo on a display."
-        case .deviceDetected: return "A device-shaped rectangle was detected around the face — this looks like a photo or screen."
-        default: return "Liveness check failed."
+        case .glossGlare: return "화면 반사광이 감지됐어요. 디스플레이에 띄운 사진으로 보여요."
+        case .deviceDetected: return "얼굴 주변에서 기기 모양의 사각형이 감지됐어요. 사진이나 화면으로 보여요."
+        default: return "실물 확인에 실패했어요."
         }
     }
 }

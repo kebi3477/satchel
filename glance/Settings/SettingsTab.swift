@@ -21,12 +21,12 @@ enum SettingsTab: String, CaseIterable, Identifiable, Hashable {
 
     var title: String {
         switch self {
-        case .general: return "General"
-        case .yourFace: return "Face"
-        case .password: return "Password"
-        case .camera: return "Camera"
-        case .recognition: return "Recognition"
-        case .about: return "About"
+        case .general: return "일반"
+        case .yourFace: return "얼굴"
+        case .password: return "암호"
+        case .camera: return "카메라"
+        case .recognition: return "인식"
+        case .about: return "정보"
         case .debugFaceLab: return "Face Lab"
         }
     }

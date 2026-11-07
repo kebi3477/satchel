@@ -20,13 +20,13 @@ struct IntroStepView: View {
                 Text("Glance")
                     .font(GlanceTheme.Font.title)
                     .foregroundStyle(GlanceTheme.textPrimary)
-                Text("Face Unlock for Mac")
+                Text("Mac을 위한 얼굴 잠금 해제")
                     .font(GlanceTheme.Font.button)
                     .foregroundStyle(GlanceTheme.textSecondary)
 
                 Spacer(minLength: 12)
 
-                PillButton(title: "Next") {
+                PillButton(title: "다음") {
                     controller.advance()
                 }
             }
@@ -59,7 +59,7 @@ struct PermissionsStepView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Permissions")
+            Text("권한")
                 .font(GlanceTheme.Font.title)
                 .foregroundStyle(GlanceTheme.textPrimary)
                 .padding(.leading, 4)
@@ -67,24 +67,24 @@ struct PermissionsStepView: View {
             // Spacer(minLength: 0)
 
             PermissionRow(
-                title: "Accessibility",
-                detail: "Allow Glance to unlock your Mac",
+                title: "손쉬운 사용",
+                detail: "Glance가 Mac의 잠금을 해제하도록 허용",
                 granted: controller.accessibilityGranted
             ) { controller.grantAccessibility() }
 
             PermissionRow(
-                title: "Camera",
-                detail: "Allow Glance to recognize your face",
+                title: "카메라",
+                detail: "Glance가 얼굴을 인식하도록 허용",
                 granted: controller.cameraPermission == .granted
             ) { controller.grantCamera() }
 
             // Spacer(minLength: 0)
 
             HStack(spacing: 10) {
-                PillButton(title: "Back", style: .secondary) {
+                PillButton(title: "뒤로", style: .secondary) {
                     controller.back()
                 }
-                PillButton(title: "Next", isEnabled: controller.bothPermissionsGranted) {
+                PillButton(title: "다음", isEnabled: controller.bothPermissionsGranted) {
                     controller.advance()
                 }
             }
@@ -108,13 +108,13 @@ struct SecurityNoticeStepView: View {
                 .padding(.top, 25)
                 .padding(.leading, 4)
 
-            Text("Glance is not as secure as Apple's FaceID or TouchID.")
+            Text("Glance는 Apple의 Face ID나 Touch ID만큼 안전하지 않아요.")
                 .font(GlanceTheme.Font.title)
                 .foregroundStyle(GlanceTheme.textPrimary)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.leading, 4)
 
-            Text("It uses your Mac's standard webcam and is designed for convenience, not high-security authentication.")
+            Text("Mac의 일반 웹캠을 사용하며, 높은 보안 수준의 인증이 아닌 편의를 위해 만들어졌어요.")
                 .font(GlanceTheme.Font.passwordCaption)
                 .foregroundStyle(GlanceTheme.textSecondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -124,15 +124,15 @@ struct SecurityNoticeStepView: View {
             HStack(spacing: 10) {
                 if controller.isPostUpdateNotice {
                     // Declining isn't a real option here — see `declinePostUpdateNotice()`.
-                    PillButton(title: "No thanks", style: .secondary) {
+                    PillButton(title: "사용 안 함", style: .secondary) {
                         controller.declinePostUpdateNotice()
                     }
                 } else {
-                    PillButton(title: "Back", style: .secondary) {
+                    PillButton(title: "뒤로", style: .secondary) {
                         controller.back()
                     }
                 }
-                PillButton(title: "I understand", isDefault: true) {
+                PillButton(title: "이해했어요", isDefault: true) {
                     controller.advance()
                 }
             }
@@ -152,12 +152,12 @@ struct PreSetupStepView: View {
         VStack(spacing: 2) {
             HStack(alignment: .top, spacing: 2) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Set up Face\nRecognition")
+                    Text("얼굴 인식\n설정하기")
                         .font(GlanceTheme.Font.title)
                         .foregroundStyle(GlanceTheme.textPrimary)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    Text("Follow the directions\nshown on the screen")
+                    Text("화면에 표시되는\n안내를 따라 주세요")
                         .font(GlanceTheme.Font.button)
                         .foregroundStyle(GlanceTheme.textSecondary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -171,10 +171,10 @@ struct PreSetupStepView: View {
             Spacer(minLength: 4)
 
             HStack(spacing: 10) {
-                PillButton(title: "Back", style: .secondary) {
+                PillButton(title: "뒤로", style: .secondary) {
                     controller.back()
                 }
-                PillButton(title: "Next") {
+                PillButton(title: "다음") {
                     controller.advance()
                 }
             }
@@ -198,13 +198,13 @@ struct SelectCameraStepView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Select camera")
+            Text("카메라 선택")
                 .font(GlanceTheme.Font.title)
                 .foregroundStyle(GlanceTheme.textPrimary)
                 .padding(.leading, 4)
                 .padding(.top, 14)
 
-            Text("Used for Face enrollment and for unlocking your Mac")
+            Text("얼굴 등록과 Mac 잠금 해제에 사용돼요")
                 .font(GlanceTheme.Font.passwordCaption)
                 .foregroundStyle(GlanceTheme.textSecondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -222,10 +222,10 @@ struct SelectCameraStepView: View {
             Spacer(minLength: 4)
 
             HStack(spacing: 10) {
-                PillButton(title: "Back", style: .secondary) {
+                PillButton(title: "뒤로", style: .secondary) {
                     controller.back()
                 }
-                PillButton(title: "Next") {
+                PillButton(title: "다음") {
                     controller.advance()
                 }
             }
@@ -352,7 +352,7 @@ private struct EnrollmentCloseButton: View {
         }
         .buttonStyle(.plain)
         .onHover { isHovering = $0 }
-        .accessibilityLabel("Close")
+        .accessibilityLabel("닫기")
     }
 }
 
@@ -380,12 +380,12 @@ struct NameStepView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Name this face")
+            Text("얼굴 이름 지정")
                 .font(GlanceTheme.Font.title)
                 .foregroundStyle(GlanceTheme.textPrimary)
                 .padding(.leading, 4)
 
-            Text("Used to tell enrolled faces apart when more than one person is set up on this Mac.")
+            Text("이 Mac에 여러 사람이 등록되어 있을 때 얼굴을 구분하는 데 사용돼요.")
                 .font(GlanceTheme.Font.passwordCaption)
                 .foregroundStyle(GlanceTheme.textSecondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -393,7 +393,7 @@ struct NameStepView: View {
 
             Spacer(minLength: 2)
 
-            PillTextField(placeholder: "Enter a name...", text: $controller.pendingName, autofocus: true) {
+            PillTextField(placeholder: "이름 입력…", text: $controller.pendingName, autofocus: true) {
                 controller.confirmName()
             }
 
@@ -405,7 +405,7 @@ struct NameStepView: View {
             }
 
             HStack(spacing: 10) {
-                PillButton(title: "Back", style: .secondary) {
+                PillButton(title: "뒤로", style: .secondary) {
                     controller.back()
                 }
                 PillButton(title: controller.nameStepPrimaryTitle, isEnabled: !trimmedName.isEmpty, isDefault: true) {
@@ -428,12 +428,12 @@ struct PasswordStepView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Enter your password")
+            Text("암호 입력")
                 .font(GlanceTheme.Font.title)
                 .foregroundStyle(GlanceTheme.textPrimary)
                 .padding(.leading, 4)
 
-            Text("Your password is required to unlock your Mac. It is encrypted and securely stored on your device. Glance works entirely offline, so your password never leaves your Mac.")
+            Text("Mac의 잠금을 해제하려면 암호가 필요해요. 암호는 암호화되어 기기에 안전하게 저장돼요. Glance는 완전히 오프라인으로 동작하므로 암호가 Mac 밖으로 나가지 않아요.")
                 .font(GlanceTheme.Font.passwordCaption)
                 .foregroundStyle(GlanceTheme.textSecondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -441,7 +441,7 @@ struct PasswordStepView: View {
 
             Spacer(minLength: 2)
 
-            PillSecureField(placeholder: "Enter password...", text: $password, autofocus: true) {
+            PillSecureField(placeholder: "암호 입력…", text: $password, autofocus: true) {
                 guard !password.isEmpty, !controller.isSavingPassword else { return }
                 Task { _ = await controller.finish(password: password) }
             }
@@ -455,11 +455,11 @@ struct PasswordStepView: View {
             // Spacer(minLength: 0)
 
             HStack(spacing: 10) {
-                PillButton(title: "Back", style: .secondary) {
+                PillButton(title: "뒤로", style: .secondary) {
                     controller.back()
                 }
                 PillButton(
-                    title: controller.isSavingPassword ? "Saving…" : "Confirm",
+                    title: controller.isSavingPassword ? "저장 중…" : "확인",
                     isEnabled: !password.isEmpty && !controller.isSavingPassword,
                     isDefault: true
                 ) {
@@ -478,7 +478,7 @@ struct PasswordStepView: View {
 struct CompleteStepView: View {
     var body: some View {
         HStack(spacing: 12) {
-            Text("You're all set")
+            Text("설정 완료")
                 .font(GlanceTheme.Font.title)
                 .foregroundStyle(GlanceTheme.textPrimary)
             Spacer(minLength: 4)

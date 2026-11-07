@@ -65,8 +65,8 @@ struct PasswordSettingsPage: View {
     private var noPasswordState: some View {
         SettingsEmptyStateView(
             icon: "lock.fill",
-            message: "Set up a password",
-            buttonTitle: "Set password",
+            message: "암호를 설정해 주세요",
+            buttonTitle: "암호 설정",
             caption: statusMessage,
             action: { OnboardingController.startPasswordOnly() }
         )
@@ -77,8 +77,8 @@ struct PasswordSettingsPage: View {
     private var lockedState: some View {
         SettingsEmptyStateView(
             icon: "lock.fill",
-            message: "Session locked",
-            buttonTitle: isUnlocking ? "Authenticating…" : "Unlock session",
+            message: "세션 잠김",
+            buttonTitle: isUnlocking ? "인증 중…" : "세션 열기",
             isButtonEnabled: !isUnlocking,
             caption: sessionError,
             action: unlock
@@ -90,7 +90,7 @@ struct PasswordSettingsPage: View {
     private var unlockedState: some View {
         VStack(alignment: .leading, spacing: SettingsMetrics.rowSpacing) {
             SettingsGroup {
-                SettingsRowContent(title: "Password encrypted") {
+                SettingsRowContent(title: "암호화된 암호") {
                     Image(systemName: "lock.fill")
                         .font(.system(size: 12))
                         .foregroundStyle(SettingsMetrics.textSecondary)
@@ -99,7 +99,7 @@ struct PasswordSettingsPage: View {
                 SettingsGroupDivider()
 
                 SettingsSteppedSliderRowContent(
-                    title: "Auto lock session",
+                    title: "세션 자동 잠금",
                     valueLabel: settings.autoLockInterval.title,
                     index: Binding(
                         get: { settings.autoLockInterval.sliderIndex },
@@ -110,16 +110,16 @@ struct PasswordSettingsPage: View {
 
                 SettingsGroupDivider()
 
-                SettingsRowContent(title: "Change password") {
-                    SettingsPrimaryButton(title: "Change", compact: true) {
+                SettingsRowContent(title: "암호 변경") {
+                    SettingsPrimaryButton(title: "변경", compact: true) {
                         OnboardingController.startPasswordOnly()
                     }
                 }
 
                 SettingsGroupDivider()
 
-                SettingsRowContent(title: "Remove password") {
-                    HoldToConfirmButton(title: "Remove", action: removePassword)
+                SettingsRowContent(title: "암호 제거") {
+                    HoldToConfirmButton(title: "제거", action: removePassword)
                 }
             }
 
@@ -152,9 +152,9 @@ struct PasswordSettingsPage: View {
             FaceEnrollmentStore.shared.deleteAll()
             try SecureCredentialManager.deletePassword()
             pocController.refreshCredentialStatus()
-            statusMessage = "Password and face enrollment removed."
+            statusMessage = "암호와 등록된 얼굴을 제거했어요."
         } catch {
-            statusMessage = "Couldn't remove: \(error.localizedDescription)"
+            statusMessage = "제거하지 못했어요: \(error.localizedDescription)"
         }
     }
 }

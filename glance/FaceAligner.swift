@@ -15,9 +15,9 @@ struct AlignedFace {
 }
 
 enum AlignmentTier: String {
-    case fivePoint = "5-point"
-    case twoPoint = "2-point (eyes only)"
-    case paddedCrop = "padded crop (no alignment)"
+    case fivePoint = "5점"
+    case twoPoint = "2점 (눈만)"
+    case paddedCrop = "여백 크롭 (정렬 없음)"
 }
 
 nonisolated enum FaceAligner {

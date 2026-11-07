@@ -19,16 +19,16 @@ enum KeychainError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .itemNotFound:
-            return "Keychain item not found."
+            return "키체인 항목을 찾을 수 없어요."
         case .unexpectedData:
-            return "Keychain item had an unexpected format."
+            return "키체인 항목의 형식이 올바르지 않아요."
         case .accessControlFailed(let msg):
-            return "Couldn't create Keychain access control: \(msg)"
+            return "키체인 접근 제어를 만들 수 없어요: \(msg)"
         case .authenticationFailed:
-            return "Authentication was cancelled or failed."
+            return "인증이 취소되었거나 실패했어요."
         case .osStatus(let status):
             let message = SecCopyErrorMessageString(status, nil) as String? ?? "OSStatus \(status)"
-            return "Keychain error: \(message)"
+            return "키체인 오류: \(message)"
         }
     }
 }
@@ -149,7 +149,7 @@ enum KeychainManager {
             .userPresence,
             &accessError
         ) else {
-            let msg = (accessError?.takeRetainedValue() as Error?)?.localizedDescription ?? "unknown"
+            let msg = (accessError?.takeRetainedValue() as Error?)?.localizedDescription ?? "알 수 없는 오류"
             throw KeychainError.accessControlFailed(msg)
         }
         return access

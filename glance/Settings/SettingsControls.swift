@@ -35,7 +35,7 @@ struct SettingsInfoButton: View {
                 .foregroundStyle(SettingsMetrics.textTertiary)
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("More information")
+        .accessibilityLabel("추가 정보")
         .popover(isPresented: $isPresented, arrowEdge: .bottom) {
             Text(text)
                 .font(.system(size: 12))
@@ -692,8 +692,8 @@ struct UnlockAnimationPicker: View {
 
     var body: some View {
         SettingsLabeledOptionRow(
-            title: "Style",
-            subtitle: "The animation that appears when unlocking your Mac"
+            title: "스타일",
+            subtitle: "Mac의 잠금을 해제할 때 표시되는 애니메이션이에요."
         ) {
             ForEach(UnlockAnimationStyle.selectableCases) { style in
                 SettingsOptionTile(
@@ -773,8 +773,8 @@ struct LivenessModePicker: View {
 
     var body: some View {
         SettingsLabeledOptionRow(
-            title: "Strength",
-            subtitle: "Light includes basic protection. Heavy requires you to blink or slightly move your head."
+            title: "강도",
+            subtitle: "기본은 기본적인 보호만 제공해요. 강력은 눈을 깜빡이거나 고개를 살짝 움직여야 해요."
         ) {
             ForEach(LivenessMode.allCases) { mode in
                 SettingsOptionTile(
@@ -813,7 +813,7 @@ struct UnlockTriggerPicker: View {
     var isEnabled: Bool = true
 
     var body: some View {
-        SettingsLabeledOptionRow(title: "Triggers", subtitle: "Select multiple") {
+        SettingsLabeledOptionRow(title: "실행 조건", subtitle: "여러 개 선택 가능") {
             ForEach(UnlockTrigger.allCases) { trigger in
                 let isSelected = selection.contains(trigger)
                 SettingsOptionTile(

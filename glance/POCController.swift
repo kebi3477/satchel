@@ -21,7 +21,7 @@ final class POCController {
     /// Bound to the setup SecureField. Cleared immediately after a successful save.
     var passwordInput: String = ""
 
-    var statusMessage: String = "Idle"
+    var statusMessage: String = "대기 중"
 
     func refreshAccessibilityStatus() {
         accessibilityGranted = KeystrokeInjector.isAccessibilityTrusted()
@@ -43,7 +43,7 @@ final class POCController {
         sessionError = nil
         do {
             try await Task.detached(priority: .userInitiated) {
-                try SecureCredentialManager.unlockSession(reason: "Authenticate to set up or use glance")
+                try SecureCredentialManager.unlockSession(reason: "Glance를 설정하거나 사용하려면 인증해 주세요")
             }.value
             isSessionUnlocked = true
         } catch {
@@ -63,7 +63,7 @@ final class POCController {
     /// be unlocked (Touch ID happens in `unlockSession()`, not here).
     func savePassword() async {
         guard !passwordInput.isEmpty else {
-            statusMessage = "Enter a password first."
+            statusMessage = "먼저 암호를 입력해 주세요."
             return
         }
         let plaintext = passwordInput
@@ -77,10 +77,10 @@ final class POCController {
                 defer { bytes.resetBytes(in: 0..<bytes.count) }
                 try SecureCredentialManager.savePassword(bytes)
             }.value
-            statusMessage = "Password saved and encrypted."
+            statusMessage = "암호를 암호화해 저장했어요."
             hasStoredPassword = true
         } catch {
-            statusMessage = "Save failed: \(error.localizedDescription)"
+            statusMessage = "저장하지 못했어요: \(error.localizedDescription)"
         }
     }
 
@@ -92,31 +92,31 @@ final class POCController {
     /// confirms the screen is actually locked.
     func injectStoredPassword(requireAuthoritativeLock: Bool = false) async {
         guard KeystrokeInjector.isAccessibilityTrusted() else {
-            statusMessage = "Accessibility not granted — open System Settings and enable glance."
+            statusMessage = "손쉬운 사용 권한이 없어요. 시스템 설정에서 Glance를 켜 주세요."
             return
         }
         guard SecureCredentialManager.isSessionUnlocked else {
-            statusMessage = "Session locked — authenticate with Touch ID first."
+            statusMessage = "세션이 잠겨 있어요. 먼저 Touch ID로 인증해 주세요."
             return
         }
 
         if requireAuthoritativeLock {
             guard LockMonitor.isScreenActuallyLocked() else {
-                statusMessage = "Skipped: CGSession reports screen is not actually locked."
+                statusMessage = "건너뜀: 화면이 실제로 잠겨 있지 않아요."
                 return
             }
         }
 
-        statusMessage = "Injecting…"
+        statusMessage = "입력 중…"
         do {
             try await Task.detached(priority: .userInitiated) {
                 var bytes = try SecureCredentialManager.readPassword()
                 defer { bytes.resetBytes(in: 0..<bytes.count) }
                 try KeystrokeInjector.typeAndReturn(bytes)
             }.value
-            statusMessage = "Injected stored password + Return at \(Date().formatted(date: .omitted, time: .standard))"
+            statusMessage = "\(Date().formatted(date: .omitted, time: .standard))에 저장된 암호와 Return 키를 입력했어요"
         } catch {
-            statusMessage = "Injection failed: \(error.localizedDescription)"
+            statusMessage = "입력하지 못했어요: \(error.localizedDescription)"
         }
     }
 }

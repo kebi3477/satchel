@@ -76,7 +76,7 @@ struct YourFaceSettingsPage: View {
             store.reloadIfUnlocked()
         }
         .confirmationDialog(
-            "Delete this enrolled face?",
+            "등록된 얼굴을 삭제할까요?",
             isPresented: Binding(
                 get: { identityPendingDeletion != nil },
                 set: { if !$0 { identityPendingDeletion = nil } }
@@ -84,10 +84,10 @@ struct YourFaceSettingsPage: View {
             titleVisibility: .visible,
             presenting: identityPendingDeletion
         ) { identity in
-            Button("Delete", role: .destructive) { delete(identity) }
-            Button("Cancel", role: .cancel) { identityPendingDeletion = nil }
+            Button("삭제", role: .destructive) { delete(identity) }
+            Button("취소", role: .cancel) { identityPendingDeletion = nil }
         } message: { identity in
-            Text("\"\(identity.name)\" will stop being recognized until you enroll them again.")
+            Text("다시 등록할 때까지 \"\(identity.name)\" 얼굴은 인식되지 않아요.")
         }
     }
 
@@ -96,8 +96,8 @@ struct YourFaceSettingsPage: View {
     private var lockedState: some View {
         SettingsEmptyStateView(
             icon: "lock.fill",
-            message: "Session locked",
-            buttonTitle: isUnlocking ? "Authenticating…" : "Unlock session",
+            message: "세션 잠김",
+            buttonTitle: isUnlocking ? "인증 중…" : "세션 열기",
             isButtonEnabled: !isUnlocking,
             caption: sessionError,
             action: unlock
@@ -115,14 +115,14 @@ struct YourFaceSettingsPage: View {
                 .font(.system(size: SettingsMetrics.emptyStateIconSize, weight: .regular))
                 .foregroundStyle(SettingsMetrics.qualityFairColor)
 
-            Text("Enrolled faces couldn't be read")
+            Text("등록된 얼굴을 읽을 수 없어요")
                 .font(SettingsMetrics.rowFont)
                 .foregroundStyle(SettingsMetrics.textSecondary)
 
-            SettingsCaption(text: store.loadFailure ?? "The stored data couldn't be decrypted with this session key.")
+            SettingsCaption(text: store.loadFailure ?? "이 세션 키로 저장된 데이터를 복호화할 수 없어요.")
                 .multilineTextAlignment(.center)
 
-            SettingsCaption(text: "Nothing has been deleted, and Glance will not overwrite it — enrolling is blocked until this resolves. Quit and reopen Glance to retry. If it keeps failing, the session key no longer matches this data: remove the stored password on the Password tab to clear both, then set up again.")
+            SettingsCaption(text: "삭제된 데이터는 없으며 Glance가 이 데이터를 덮어쓰지 않아요. 문제가 해결될 때까지 등록할 수 없어요. Glance를 종료하고 다시 열어 재시도해 주세요. 계속 실패하면 세션 키가 이 데이터와 더 이상 일치하지 않는 것이에요. 암호 탭에서 저장된 암호를 제거해 둘 다 지운 다음 다시 설정해 주세요.")
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity, minHeight: SettingsMetrics.emptyStateMinHeight)
@@ -133,8 +133,8 @@ struct YourFaceSettingsPage: View {
     private var notEnrolledState: some View {
         SettingsEmptyStateView(
             icon: "faceid",
-            message: "Face enrollment",
-            buttonTitle: "Set up Face Unlock",
+            message: "얼굴 등록",
+            buttonTitle: "얼굴 잠금 해제 설정",
             isButtonEnabled: !enrollmentFlowIsRunning,
             action: { OnboardingController.startEnrollmentOnly() }
         )
@@ -162,7 +162,7 @@ struct YourFaceSettingsPage: View {
             }
 
             if !store.identities.isEmpty && store.activeIdentities.isEmpty {
-                SettingsCaption(text: "No identities are enabled — face unlock won't recognize anyone until you switch one back on.")
+                SettingsCaption(text: "켜진 얼굴이 없어요. 하나 이상 다시 켤 때까지 얼굴 잠금 해제가 아무도 인식하지 않아요.")
             }
 
             if let writeError {
@@ -177,7 +177,7 @@ struct YourFaceSettingsPage: View {
         SettingsGroup {
             VStack(alignment: .leading, spacing: 6) {
                 HStack(spacing: 8) {
-                    Text("Face encrypted")
+                    Text("암호화된 얼굴")
                         .font(SettingsMetrics.rowFont)
                         .foregroundStyle(SettingsMetrics.textPrimary)
                     Spacer(minLength: 8)
@@ -186,7 +186,7 @@ struct YourFaceSettingsPage: View {
                         .foregroundStyle(SettingsMetrics.textSecondary)
                 }
 
-                Text("Enroll separate identities to use Glance with multiple people, accessories (ex. glasses), facial expressions, or new lighting environments. This improves recognition quality.")
+                Text("여러 사람, 액세서리(예: 안경), 표정, 새로운 조명 환경마다 얼굴을 따로 등록하면 Glance를 함께 쓸 수 있어요. 인식 품질도 좋아져요.")
                     .font(.system(size: 12))
                     .foregroundStyle(SettingsMetrics.textTertiary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -199,7 +199,7 @@ struct YourFaceSettingsPage: View {
 
     private var identitiesHeader: some View {
         HStack(spacing: 0) {
-            SettingsSectionTitle(text: "Identities")
+            SettingsSectionTitle(text: "얼굴")
 
             Button {
                 OnboardingController.startAddIdentity()
@@ -213,7 +213,7 @@ struct YourFaceSettingsPage: View {
             .buttonStyle(.plain)
             .disabled(enrollmentFlowIsRunning)
             .opacity(enrollmentFlowIsRunning ? 0.4 : 1)
-            .help("Enroll another face")
+            .help("다른 얼굴 등록")
             .padding(.trailing, SettingsMetrics.sectionTitleHorizontalInset)
             .padding(.top, SettingsMetrics.sectionTitleVerticalPadding)
         }
@@ -253,7 +253,7 @@ struct YourFaceSettingsPage: View {
         Task {
             do {
                 try await Task.detached(priority: .userInitiated) {
-                    try SecureCredentialManager.unlockSession(reason: "Authenticate to view your enrolled face")
+                    try SecureCredentialManager.unlockSession(reason: "등록된 얼굴을 보려면 인증해 주세요")
                 }.value
                 store.reloadIfUnlocked()
             } catch {
@@ -296,9 +296,9 @@ private struct IdentityCard: View {
     /// An enrollment saved before per-sample quality existed reports "not
     /// recorded" rather than a misleading 100%.
     private var qualityCaption: String {
-        if identity.samples.isEmpty { return "No samples captured" }
-        if ratedCount == 0 { return "Capture quality • not recorded" }
-        return "Capture quality • \(qualityPercentage)%"
+        if identity.samples.isEmpty { return "촬영된 샘플 없음" }
+        if ratedCount == 0 { return "촬영 품질 • 기록 없음" }
+        return "촬영 품질 • \(qualityPercentage)%"
     }
 
     var body: some View {
@@ -320,11 +320,11 @@ private struct IdentityCard: View {
                         QualityTickStrip(samples: identity.samples)
                         .padding(.leading, 2)
                         Spacer(minLength: 12)
-                        PillActionButton(title: "Recapture", action: recapture)
+                        PillActionButton(title: "다시 촬영", action: recapture)
                             .disabled(!canStartFlow)
                             .opacity(canStartFlow ? 1 : 0.4)
                         PillIconButton(systemImage: "trash", action: delete)
-                            .help("Delete \(identity.name)")
+                            .help("\(identity.name) 삭제")
                     }
                 }
                 // Dimmed rather than hidden while switched off: the person
@@ -332,7 +332,7 @@ private struct IdentityCard: View {
                 .opacity(isEnabled ? 1 : 0.45)
 
                 if isStale {
-                    Text("Captured with a different recognition model — recapture before this face can unlock your Mac.")
+                    Text("다른 인식 모델로 촬영된 얼굴이에요. 이 얼굴로 Mac의 잠금을 해제하려면 다시 촬영해 주세요.")
                         .font(.system(size: 11))
                         .foregroundStyle(SettingsMetrics.qualityFairColor)
                         .fixedSize(horizontal: false, vertical: true)
@@ -378,7 +378,7 @@ private struct QualityTickStrip: View {
         }
         .frame(width: stripWidth, height: SettingsMetrics.qualityTickHeight, alignment: .leading)
         .accessibilityElement()
-        .accessibilityLabel("Capture quality for \(samples.count) samples")
+        .accessibilityLabel("샘플 \(samples.count)개의 촬영 품질")
     }
 
     /// Fixed rather than flexible: this strip shares a row with a `Spacer`

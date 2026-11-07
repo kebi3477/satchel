@@ -57,10 +57,10 @@ final class CameraManager: NSObject {
         }
 
         guard permission == .granted else {
-            errorMessage = "Camera access not granted (status: \(describe(status))). " +
+            errorMessage = "카메라 접근 권한이 없어요(상태: \(describe(status))). " +
                 (status == .restricted
-                    ? "macOS reports this as *restricted* — not a simple user denial. This usually means Screen Time content restrictions or an MDM/profile policy is blocking camera access for this app; toggling it in System Settings > Privacy & Security > Camera won't help until that restriction is lifted."
-                    : "Enable it in System Settings > Privacy & Security > Camera. If glance isn't listed there, quit the app, run `tccutil reset Camera dev.kebi.glance` in Terminal, then relaunch so macOS asks again.")
+                    ? "macOS에서 *제한됨* 상태로 보고하고 있어요. 단순히 사용자가 거부한 것이 아니에요. 보통 스크린 타임 콘텐츠 제한이나 MDM/프로파일 정책이 이 앱의 카메라 접근을 막고 있다는 뜻이며, 제한이 해제되기 전에는 시스템 설정 > 개인정보 보호 및 보안 > 카메라에서 켜도 소용이 없어요."
+                    : "시스템 설정 > 개인정보 보호 및 보안 > 카메라에서 켜 주세요. 목록에 Glance가 없으면 앱을 종료하고 터미널에서 `tccutil reset Camera dev.kebi.glance`를 실행한 다음, 앱을 다시 열어 macOS가 다시 묻도록 해 주세요.")
             return
         }
 
@@ -121,7 +121,7 @@ final class CameraManager: NSObject {
     /// Called on every `start()` so a camera preference change in Settings takes effect without an app restart.
     private func reconcileDeviceIfNeeded() {
         guard let device = CameraDeviceCatalog.resolvedDevice() else {
-            errorMessage = "No camera device found."
+            errorMessage = "카메라 기기를 찾을 수 없어요."
             return
         }
         guard device.uniqueID != currentInput?.device.uniqueID else { return }
@@ -136,7 +136,7 @@ final class CameraManager: NSObject {
             selectHighestResolutionFormat(for: device)
         } else {
             currentInput = nil
-            errorMessage = "No camera device found."
+            errorMessage = "카메라 기기를 찾을 수 없어요."
         }
         session.commitConfiguration()
     }
@@ -155,7 +155,7 @@ final class CameraManager: NSObject {
             device.activeFormat = best
             device.unlockForConfiguration()
         } catch {
-            errorMessage = "Couldn't select the camera's highest-resolution format: \(error.localizedDescription)"
+            errorMessage = "카메라의 최고 해상도 형식을 선택할 수 없어요: \(error.localizedDescription)"
         }
     }
 

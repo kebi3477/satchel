@@ -63,8 +63,8 @@ struct GeneralSettingsPage: View {
     private var lockedState: some View {
         SettingsEmptyStateView(
             icon: "lock.fill",
-            message: "Session locked",
-            buttonTitle: isUnlocking ? "Authenticating…" : "Unlock session",
+            message: "세션 잠김",
+            buttonTitle: isUnlocking ? "인증 중…" : "세션 열기",
             isButtonEnabled: !isUnlocking,
             caption: sessionError,
             action: unlock
@@ -76,7 +76,7 @@ struct GeneralSettingsPage: View {
     private var unlockedState: some View {
         VStack(alignment: .leading, spacing: SettingsMetrics.rowSpacing) {
             SettingsGroup {
-                SettingsRowContent(title: "Launch at login") {
+                SettingsRowContent(title: "로그인 시 실행") {
                     GlanceToggle(isOn: Binding(
                         get: { launchAtLoginEnabled },
                         set: { newValue in
@@ -92,11 +92,11 @@ struct GeneralSettingsPage: View {
                     ))
                 }
                 SettingsGroupDivider()
-                SettingsRowContent(title: "Show in menu bar") {
+                SettingsRowContent(title: "메뉴 막대에 표시") {
                     GlanceToggle(isOn: $settings.showsInMenuBar)
                 }
                 SettingsGroupDivider()
-                SettingsRowContent(title: "Enable Face Unlock") {
+                SettingsRowContent(title: "얼굴 잠금 해제 사용") {
                     GlanceToggle(isOn: $coordinator.isEnabled)
                 }
                 SettingsGroupDivider()
@@ -126,29 +126,29 @@ struct GeneralSettingsPage: View {
                 SettingsCaption(text: launchAtLoginError)
             }
             if hasInheritedXcodePermission {
-                SettingsCaption(text: "Running from Xcode — permission checks resolve against Xcode’s grants, not glance’s, so this reading is meaningless. Launch glance.app on its own to see the real state.")
+                SettingsCaption(text: "Xcode에서 실행 중이에요. 권한 확인이 glance가 아닌 Xcode의 권한 기준으로 이루어지므로 이 상태는 정확하지 않아요. 실제 상태를 보려면 glance.app을 직접 실행해 주세요.")
             } else if needsInputMonitoring {
                 inputMonitoringNotice()
             }
 
             VStack(alignment: .leading, spacing: 8) {
-                SettingsSectionTitle(text: "Behaviour")
+                SettingsSectionTitle(text: "동작")
                 SettingsGroup {
-                    SettingsRowContent(title: "Retry on notch hover") {
+                    SettingsRowContent(title: "노치에 포인터를 올리면 재시도") {
                         GlanceToggle(isOn: $settings.retryOnHover)
                     }
                     SettingsGroupDivider()
-                    SettingsRowContent(title: "Auto retry once after failure") {
+                    SettingsRowContent(title: "실패 시 한 번 자동 재시도") {
                         GlanceToggle(isOn: $settings.autoRetryOnce)
                     }
                     SettingsGroupDivider()
-                    SettingsRowContent(title: "Haptic feedback") {
+                    SettingsRowContent(title: "햅틱 피드백") {
                         GlanceToggle(isOn: $settings.hapticFeedbackEnabled)
                     }
                     SettingsGroupDivider()
                     SettingsSteppedSliderRowContent(
-                        title: "Face detection duration",
-                        valueLabel: "\(settings.faceDetectionSeconds)s",
+                        title: "얼굴 인식 시간",
+                        valueLabel: "\(settings.faceDetectionSeconds)초",
                         index: Binding(
                             get: { Double(settings.faceDetectionSeconds - GlanceSettings.faceDetectionRange.lowerBound) },
                             set: { settings.faceDetectionSeconds = GlanceSettings.faceDetectionRange.lowerBound + Int($0.rounded()) }
@@ -159,9 +159,9 @@ struct GeneralSettingsPage: View {
             }
 
             VStack(alignment: .leading, spacing: 8) {
-                SettingsSectionTitle(text: "Animation")
+                SettingsSectionTitle(text: "애니메이션")
                 SettingsGroup {
-                    SettingsRowContent(title: "Show animation") {
+                    SettingsRowContent(title: "애니메이션 표시") {
                         GlanceToggle(isOn: $settings.showUnlockAnimation)
                     }
                     SettingsGroupDivider()
@@ -187,8 +187,8 @@ struct GeneralSettingsPage: View {
     /// Shown while "On space" is selected but Input Monitoring isn't granted.
     private func inputMonitoringNotice() -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            SettingsCaption(text: "“On space” reads the keyboard directly to see the space key on the lock screen, which needs Accessibility — the same permission glance uses to type your password. Switch glance on under Privacy & Security → Accessibility, then quit and reopen glance.")
-            Button("Open Accessibility settings") {
+            SettingsCaption(text: "‘스페이스 키’ 조건은 잠금 화면에서 스페이스 키 입력을 감지하기 위해 키보드를 직접 읽으므로 손쉬운 사용 권한이 필요해요. glance가 암호를 입력할 때 쓰는 것과 같은 권한이에요. 개인정보 보호 및 보안 → 손쉬운 사용에서 glance를 켠 다음, glance를 종료하고 다시 열어 주세요.")
+            Button("손쉬운 사용 설정 열기") {
                 // Covers the rare install with no Accessibility grant at all.
                 SpaceKeyMonitor.requestInputMonitoringAccess()
                 openSystemSettings(pane: "Privacy_Accessibility")
@@ -208,9 +208,9 @@ struct GeneralSettingsPage: View {
     }
 
     private func displayPicker() -> some View {
-        SettingsRowContent(title: "Display on") {
+        SettingsRowContent(title: "표시할 디스플레이") {
             SettingsMenuPickerPill(label: displayLabel) {
-                Button("Main display") {
+                Button("주 디스플레이") {
                     settings.preferredDisplayID = nil
                     settings.preferredDisplayName = nil
                 }
@@ -238,13 +238,13 @@ struct GeneralSettingsPage: View {
     }
 
     private var displayLabel: String {
-        guard let targetID = settings.preferredDisplayID else { return "Main display" }
+        guard let targetID = settings.preferredDisplayID else { return "주 디스플레이" }
         if let connected = screens.first(where: { $0.stableDisplayID == targetID }) {
             return connected.localizedName
         }
         // Picked, but not currently connected — say so rather than showing
         // a bare ID or falling back to another display's name.
-        guard let name = settings.preferredDisplayName else { return "Selected display (disconnected)" }
-        return "\(name) (disconnected)"
+        guard let name = settings.preferredDisplayName else { return "선택한 디스플레이(연결 끊김)" }
+        return "\(name)(연결 끊김)"
     }
 }

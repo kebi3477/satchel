@@ -20,10 +20,10 @@ enum AutoLockInterval: Int, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .never: return "Never"
-        case .sevenDays: return "7 days"
-        case .fourteenDays: return "14 days"
-        case .thirtyDays: return "30 days"
+        case .never: return "안 함"
+        case .sevenDays: return "7일"
+        case .fourteenDays: return "14일"
+        case .thirtyDays: return "30일"
         }
     }
 
@@ -54,9 +54,9 @@ enum UnlockAnimationStyle: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .none: return "None"
-        case .minimal: return "Minimal"
-        case .original: return "Original"
+        case .none: return "없음"
+        case .minimal: return "미니멀"
+        case .original: return "오리지널"
         }
     }
 
@@ -80,9 +80,9 @@ enum UnlockTrigger: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .onWake: return "On wake"
-        case .onLock: return "On lock"
-        case .onSpace: return "On space"
+        case .onWake: return "깨어날 때"
+        case .onLock: return "잠글 때"
+        case .onSpace: return "스페이스 키"
         }
     }
 

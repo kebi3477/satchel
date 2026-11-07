@@ -146,6 +146,28 @@ struct GeneralSettingsPage: View {
                         GlanceToggle(isOn: $settings.hapticFeedbackEnabled)
                     }
                     SettingsGroupDivider()
+                    SettingsRowContent(title: "인식 소리") {
+                        GlanceToggle(isOn: $settings.soundEnabled)
+                    }
+                    if settings.soundEnabled {
+                        SettingsGroupDivider()
+                        SettingsSteppedSliderRowContent(
+                            title: "소리 크기",
+                            valueLabel: "\(settings.soundVolume)",
+                            index: Binding(
+                                get: { Double(settings.soundVolume) },
+                                set: { newValue in
+                                    let level = Int(newValue.rounded())
+                                    guard level != settings.soundVolume else { return }
+                                    settings.soundVolume = level
+                                    // Preview so the level can be judged by ear.
+                                    ScanSoundPlayer.shared.tick(progress: 0.8)
+                                }
+                            ),
+                            stopCount: GlanceSettings.soundVolumeRange.count
+                        )
+                    }
+                    SettingsGroupDivider()
                     SettingsSteppedSliderRowContent(
                         title: "얼굴 인식 시간",
                         valueLabel: "\(settings.faceDetectionSeconds)초",

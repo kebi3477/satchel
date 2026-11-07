@@ -115,6 +115,8 @@ final class GlanceSettings {
         static let faceDetectionSeconds = "GlanceSettings.faceDetectionSeconds"
         static let autoRetryOnce = "GlanceSettings.autoRetryOnce"
         static let hapticFeedbackEnabled = "GlanceSettings.hapticFeedbackEnabled"
+        static let soundEnabled = "GlanceSettings.soundEnabled"
+        static let soundVolume = "GlanceSettings.soundVolume"
         static let showsInMenuBar = "GlanceSettings.showsInMenuBar"
         static let preferredDisplayID = "GlanceSettings.preferredDisplayID"
         static let preferredDisplayName = "GlanceSettings.preferredDisplayName"
@@ -213,6 +215,14 @@ final class GlanceSettings {
     var hapticFeedbackEnabled: Bool {
         didSet { defaults.set(hapticFeedbackEnabled, forKey: Key.hapticFeedbackEnabled) }
     }
+    /// Scan feedback sounds (see ScanSoundPlayer). Plays at the lock screen, so it's user-switchable.
+    var soundEnabled: Bool {
+        didSet { defaults.set(soundEnabled, forKey: Key.soundEnabled) }
+    }
+    /// 0…10 step scale; scaled into a gain by ScanSoundPlayer.
+    var soundVolume: Int {
+        didSet { defaults.set(soundVolume, forKey: Key.soundVolume) }
+    }
     /// Hiding the status item does not quit Glance; a relaunch still routes
     /// through `AppDelegate.applicationShouldHandleReopen` to show Settings.
     var showsInMenuBar: Bool {
@@ -230,6 +240,7 @@ final class GlanceSettings {
     }
 
     static let faceDetectionRange = 3...10
+    static let soundVolumeRange = 0...10
 
     /// Which display Face Unlock shows on. `nil` means `NotchGeometry.preferredScreen()`'s
     /// default, re-evaluated live; a pinned display has deliberately no
@@ -331,6 +342,9 @@ final class GlanceSettings {
             ?? 5
         autoRetryOnce = defaults.object(forKey: Key.autoRetryOnce) as? Bool ?? false
         hapticFeedbackEnabled = defaults.object(forKey: Key.hapticFeedbackEnabled) as? Bool ?? true
+        soundEnabled = defaults.object(forKey: Key.soundEnabled) as? Bool ?? true
+        soundVolume = (defaults.object(forKey: Key.soundVolume) as? Int)
+            .map { min(max($0, Self.soundVolumeRange.lowerBound), Self.soundVolumeRange.upperBound) } ?? 6
         // Keep the icon available for existing and new installs unless the
         // user explicitly opts into the background-only mode.
         showsInMenuBar = defaults.object(forKey: Key.showsInMenuBar) as? Bool ?? true

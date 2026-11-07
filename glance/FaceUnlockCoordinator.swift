@@ -265,11 +265,13 @@ final class FaceUnlockCoordinator {
 
         switch outcome {
         case .matched:
+            ScanSoundPlayer.shared.success()
             // The unlock already happened inside observeScanWindow — this only decides whether anything is shown about it.
             if showsUI {
                 NotchOverlayController.shared.finish(success: true)
             }
         case .consistentlyWrongFace:
+            ScanSoundPlayer.shared.failure()
             statusMessage = "얼굴을 인식하지 못했어요."
             if showsUI {
                 NotchOverlayController.shared.finish(success: false)
@@ -279,6 +281,7 @@ final class FaceUnlockCoordinator {
                 scheduleAutoRetryIfEnabled(after: headlessRetryDelay)
             }
         case .spoofSuspected:
+            ScanSoundPlayer.shared.failure()
             statusMessage = "실물 얼굴인지 확인하지 못했어요."
             if showsUI {
                 NotchOverlayController.shared.finish(success: false)
@@ -392,6 +395,13 @@ final class FaceUnlockCoordinator {
             // `activeIdentities`, not `identities`: someone switched off on the Your Face page stays enrolled but must not unlock.
             let scored = pipeline.score(result.embedding, against: FaceEnrollmentStore.shared.activeIdentities)
             let matched = pipeline.bestMatch(in: scored, threshold: matchThreshold)
+
+            // Audible "homing in": pitch/volume rise as the best similarity nears the threshold.
+            if let best = scored.first {
+                let floor = matchThreshold - 0.3
+                let similarity = min(best.centroidSimilarity, best.maxSampleSimilarity)
+                ScanSoundPlayer.shared.tick(progress: Double((similarity - floor) / (matchThreshold - floor)))
+            }
 
             if let matched {
                 wrongFaceStartedAt = nil

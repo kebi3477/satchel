@@ -4,6 +4,6 @@
 
 | 파일 | 원본 | 작성자 | 라이선스 |
 |---|---|---|---|
-| enroll_sweep_wind.m4a | [Short wind sound](https://opengameart.org/content/short-wind-sound) (앞 2.2초, 페이드 아웃) | remaxim | CC0 |
+| enroll_sweep_wind.m4a | [Short wind sound](https://opengameart.org/content/short-wind-sound) (음 높이 25% 낮춤, 800Hz 이상 감쇠, 저음 보강, 2.4초로 자르고 페이드 아웃) | remaxim | CC0 |
 | enroll_pose_ok.m4a | [Interface Sounds](https://kenney.nl/assets/interface-sounds) `confirmation_001.ogg` | Kenney (www.kenney.nl) | CC0 |
 | enroll_complete.m4a | [Interface Sounds](https://kenney.nl/assets/interface-sounds) `confirmation_002.ogg` | Kenney (www.kenney.nl) | CC0 |

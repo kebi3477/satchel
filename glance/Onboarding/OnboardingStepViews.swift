@@ -187,7 +187,7 @@ struct PreSetupStepView: View {
 
 private struct UnlockGlyphView: View {
     var body: some View {
-        LoopingVideoView(resourceName: "idleanimation")
+        FaceIDGlyphView(media: .idle, color: GlanceTheme.textPrimary)
     }
 }
 

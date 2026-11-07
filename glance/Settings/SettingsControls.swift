@@ -759,14 +759,8 @@ struct UnlockAnimationPicker: View {
 
 private struct UnlockStillThumbnail: View {
     var body: some View {
-        if let url = Bundle.main.url(forResource: "unlockstatic", withExtension: "png"),
-           let nsImage = NSImage(contentsOf: url) {
-            Image(nsImage: nsImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-        } else {
-            Color.clear
-        }
+        FaceIDGlyphView(media: .idle, color: GlanceTheme.textPrimary, animatesIdle: false)
+            .padding(4)
     }
 }
 

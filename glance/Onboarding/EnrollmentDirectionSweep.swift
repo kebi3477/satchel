@@ -74,6 +74,8 @@ struct EnrollmentDirectionSweep: View {
         }
         .allowsHitTesting(false)
         .accessibilityHidden(true)
+        // Each sweep pass is a fresh view (`.id(direction)`), so this fires once per pass.
+        .onAppear { ScanSoundPlayer.shared.enrollmentSweep() }
     }
 }
 

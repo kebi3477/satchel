@@ -7,6 +7,10 @@
 //      best similarity approaches the match threshold, so it audibly "homes in".
 //    - success(): a brighter, longer rising "pop~".
 //    - failure(): two low descending pops.
+//  Enrollment cues use bundled CC0 sound files (Resources/Sounds, see CREDITS.md):
+//    - enrollmentSweep(): wind swell while the blue sweep crosses the screen
+//    - enrollmentPoseCaptured(): short confirmation when one head direction is done
+//    - enrollmentComplete(): longer confirmation when every direction is captured
 //  Honors GlanceSettings.soundEnabled / soundVolume and follows the system output volume.
 //
 
@@ -20,6 +24,8 @@ final class ScanSoundPlayer {
     private let player = AVAudioPlayerNode()
     private let format: AVAudioFormat
     private var lastTickAt: Date = .distantPast
+    /// Preloaded file players, keyed by resource name.
+    private var filePlayers: [String: AVAudioPlayer] = [:]
 
     /// Ticks closer together than this are dropped so a 30fps camera doesn't machine-gun.
     private let minimumTickInterval: TimeInterval = 0.17
@@ -63,6 +69,30 @@ final class ScanSoundPlayer {
             Tone(start: 0, duration: 0.1, fromHz: 330, toHz: 290, gain: 0.7),
             Tone(start: 0.14, duration: 0.14, fromHz: 260, toHz: 210, gain: 0.7),
         ])
+    }
+
+    // MARK: - Enrollment cues (bundled files)
+
+    func enrollmentSweep() { playFile("enroll_sweep_wind", gain: 0.9) }
+    func enrollmentPoseCaptured() { playFile("enroll_pose_ok", gain: 0.8) }
+    func enrollmentComplete() { playFile("enroll_complete", gain: 0.9) }
+
+    private func playFile(_ name: String, gain: Float) {
+        let master = masterGain
+        guard master > 0 else { return }
+        let player: AVAudioPlayer
+        if let cached = filePlayers[name] {
+            player = cached
+        } else {
+            guard let url = Bundle.main.url(forResource: name, withExtension: "m4a"),
+                  let loaded = try? AVAudioPlayer(contentsOf: url) else { return }
+            loaded.prepareToPlay()
+            filePlayers[name] = loaded
+            player = loaded
+        }
+        player.volume = gain * master
+        player.currentTime = 0
+        player.play()
     }
 
     // MARK: - Synthesis

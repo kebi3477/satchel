@@ -916,7 +916,10 @@ final class OnboardingController {
             poseStartedAt = .now
             poseHoldStartedAt = nil
             if currentPoseIndex >= EnrollmentPose.allCases.count {
+                ScanSoundPlayer.shared.enrollmentComplete()
                 await finishEnrollment()
+            } else {
+                ScanSoundPlayer.shared.enrollmentPoseCaptured()
             }
         }
     }

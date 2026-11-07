@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		17280C29A9398CBFDE0080BF /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 020486DA199A87C9F636359E /* Sparkle */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		601C493C300FFC8400D3DE9D /* glance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = glance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -40,7 +36,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17280C29A9398CBFDE0080BF /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,9 +77,6 @@
 				601C493E300FFC8400D3DE9D /* glance */,
 			);
 			name = glance;
-			packageProductDependencies = (
-				020486DA199A87C9F636359E /* Sparkle */,
-			);
 			productName = glance;
 			productReference = 601C493C300FFC8400D3DE9D /* glance.app */;
 			productType = "com.apple.product-type.application";
@@ -113,9 +105,6 @@
 			);
 			mainGroup = 601C4933300FFC8400D3DE9D;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				61D2D277C8FB856EB092125F /* XCRemoteSwiftPackageReference "Sparkle" */,
-			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 601C493D300FFC8400D3DE9D /* Products */;
 			projectDirPath = "";
@@ -362,24 +351,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		61D2D277C8FB856EB092125F /* XCRemoteSwiftPackageReference "Sparkle" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sparkle-project/Sparkle";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.6.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		020486DA199A87C9F636359E /* Sparkle */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 61D2D277C8FB856EB092125F /* XCRemoteSwiftPackageReference "Sparkle" */;
-			productName = Sparkle;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 601C4934300FFC8400D3DE9D /* Project object */;
 }

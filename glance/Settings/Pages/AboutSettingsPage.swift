@@ -7,7 +7,6 @@ import SwiftUI
 import AppKit
 
 struct AboutSettingsPage: View {
-    @Bindable var updater: UpdaterController
     let environment: AppEnvironment
 
     /// Secret-tap state for revealing the Debug/Face Lab sidebar section —
@@ -47,22 +46,6 @@ struct AboutSettingsPage: View {
         .padding(.bottom, 16)
 
         SettingsGroup {
-            SettingsActionRowContent(
-                title: "Check for Updates",
-                buttonTitle: "Check",
-                isEnabled: updater.canCheckForUpdates
-            ) {
-                updater.checkForUpdates()
-            }
-
-            SettingsGroupDivider()
-
-            SettingsRowContent(title: "Automatically check for updates") {
-                GlanceToggle(isOn: $updater.automaticallyChecksForUpdates)
-            }
-
-            SettingsGroupDivider()
-
             SettingsActionRowContent(
                 title: "Send Feedback",
                 buttonTitle: "Send"

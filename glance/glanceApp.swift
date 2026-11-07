@@ -65,10 +65,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         openSettingsWindowAction = action
     }
 
-    /// Guards `environment.updater.start()` against running twice — reachable from two call sites, and Sparkle doesn't promise
-    /// starting an already-started `SPUUpdater` is a safe no-op.
-    private var hasStartedUpdater = false
-
     /// Accessory before the Dock binds this launch to a persistent tile — starting `.regular` made the pinned icon bounce and
     /// get replaced by a Recents tile the moment the Dock icon was later hidden/shown.
     func applicationWillFinishLaunching(_ notification: Notification) {
@@ -90,12 +86,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             name: NSWindow.willCloseNotification, object: nil
         )
 
-        // Deferred until onboarding is done — Sparkle's own "Check for updates automatically?" consent alert fires the moment
-        // it starts on a fresh install, and starting unconditionally here used to pop it mid-onboarding.
         if GlanceSettings.shared.hasCompletedOnboarding {
-            if GlanceSettings.shared.hasAcknowledgedSecurityNotice {
-                startUpdaterIfNeeded()
-            } else {
+            if !GlanceSettings.shared.hasAcknowledgedSecurityNotice {
                 // Upgraded from a version before the notice existed — show it once, standalone.
                 presentPostUpdateSecurityNotice()
             }
@@ -167,7 +159,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             onFirstRunComplete: { [weak self] in
                 // First time Settings should appear, which also brings the Dock icon back.
                 self?.revealSettingsWindow()
-                self?.startUpdaterIfNeeded()
             }
         )
     }
@@ -180,23 +171,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         NSApp.setActivationPolicy(.accessory)
         guard NotchOverlayController.shared.phase != .onboarding else { return }
-        OnboardingController.startPostUpdateNotice { [weak self] in
-            self?.startUpdaterIfNeeded()
-        }
-    }
-
-    /// Reachable from launch (onboarding already done) or from first-run completion — `hasStartedUpdater` collapses both into "exactly once."
-    private func startUpdaterIfNeeded() {
-        guard !hasStartedUpdater else { return }
-        hasStartedUpdater = true
-        environment.updater.start()
+        OnboardingController.startPostUpdateNotice {}
     }
 
     /// Hides the Dock icon once no `canBecomeMain` window is left (`revealSettingsWindow()` brings it back) — excludes non-main
-    /// windows like the lock-screen notch overlay, and backs off while Sparkle's update window is showing.
+    /// windows like the lock-screen notch overlay.
     @objc private func windowWillClose(_ notification: Notification) {
         guard let closingWindow = notification.object as? NSWindow, closingWindow.canBecomeMain else { return }
-        guard !environment.updater.isPresentingUpdateUI else { return }
         let stillOpen = NSApp.windows.contains { $0 !== closingWindow && $0.canBecomeMain && $0.isVisible }
         guard !stillOpen else { return }
         NSApp.setActivationPolicy(.accessory)

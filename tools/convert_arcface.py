@@ -14,7 +14,7 @@ Usage:
     python tools/convert_arcface.py --variant w600k_mbf
 
 Output:
-    glance/Models/ArcFace.mlpackage
+    Satchel/Models/ArcFace.mlpackage
         input:  "input_image", 112x112 RGB CVPixelBuffer/CGImage
         output: "embedding", 512 floats (NOT yet L2-normalized — Swift does that)
 
@@ -189,7 +189,7 @@ def main() -> None:
         verify_parity(mlmodel, onnx_path)
 
     print(f"\nDone. Model ready at: {args.output}")
-    print("Next: add this file to the Xcode project (glance/Models/ArcFace.mlpackage) if not auto-picked-up,")
+    print("Next: add this file to the Xcode project (Satchel/Models/ArcFace.mlpackage) if not auto-picked-up,")
     print("then build — ArcFaceEmbedder.swift will load it from the app bundle at runtime.")
 
 

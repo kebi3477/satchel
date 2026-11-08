@@ -7,12 +7,12 @@
 //  standalone script against the real files:
 //
 //      swiftc -O -o /tmp/liveness_selftest \
-//        glance/Liveness/LandmarkGeometry.swift \
-//        glance/Liveness/GeometryLiveness.swift \
-//        glance/Liveness/GlareCue.swift \
-//        glance/Liveness/LivenessCues.swift \
-//        glance/Liveness/LivenessScoring.swift \
-//        glance/Liveness/LivenessAnalyzer.swift \
+//        Satchel/Liveness/LandmarkGeometry.swift \
+//        Satchel/Liveness/GeometryLiveness.swift \
+//        Satchel/Liveness/GlareCue.swift \
+//        Satchel/Liveness/LivenessCues.swift \
+//        Satchel/Liveness/LivenessScoring.swift \
+//        Satchel/Liveness/LivenessAnalyzer.swift \
 //        tools/liveness_selftest.swift \
 //      && /tmp/liveness_selftest
 //

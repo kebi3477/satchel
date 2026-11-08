@@ -19,7 +19,7 @@ enum ArcFaceEmbedderError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .modelNotFound:
-            return "앱 번들에서 ArcFace.mlpackage/mlmodelc를 찾을 수 없어요. tools/convert_arcface.py를 실행한 뒤 glance/Models/ArcFace.mlpackage를 Xcode 프로젝트에 추가하세요."
+            return "앱 번들에서 ArcFace.mlpackage/mlmodelc를 찾을 수 없어요. tools/convert_arcface.py를 실행한 뒤 Satchel/Models/ArcFace.mlpackage를 Xcode 프로젝트에 추가하세요."
         case .modelLoadFailed(let detail):
             return "ArcFace Core ML 모델을 불러오지 못했어요: \(detail)"
         case .pixelBufferCreationFailed:

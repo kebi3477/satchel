@@ -1,5 +1,5 @@
 //
-//  glance-Bridging-Header.h
+//  Satchel-Bridging-Header.h
 //  glance
 //
 

@@ -2,7 +2,7 @@
 
 ## Hidden Bar
 
-`glance/MenuBarCollapse/` adapts the macOS 27 menu-bar hiding mechanism from
+`Satchel/MenuBarCollapse/` adapts the macOS 27 menu-bar hiding mechanism from
 [Hidden Bar](https://github.com/dwarvesf/hidden).
 
 ```
@@ -31,4 +31,4 @@ SOFTWARE.
 
 ## Sound effects
 
-See `glance/Resources/Sounds/CREDITS.md` (all CC0).
+See `Satchel/Resources/Sounds/CREDITS.md` (all CC0).

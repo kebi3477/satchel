@@ -22,12 +22,12 @@
 ## 빌드
 
 - macOS 15 이상, Xcode 26 이상
-- `glance.xcodeproj`를 열고 서명 Team을 본인 계정으로 바꾼 뒤 실행하세요.
+- `Satchel.xcodeproj`를 열고 서명 Team을 본인 계정으로 바꾼 뒤 실행하세요.
 
 ## 라이선스와 출처
 
 - MIT © Jonathan Zhou (Glance 원저작자). [LICENSE](LICENSE)
-- 서드파티 고지는 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), 효과음 출처는 [glance/Resources/Sounds/CREDITS.md](glance/Resources/Sounds/CREDITS.md)를 보세요.
+- 서드파티 고지는 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), 효과음 출처는 [Satchel/Resources/Sounds/CREDITS.md](Satchel/Resources/Sounds/CREDITS.md)를 보세요.
 
 ---
 

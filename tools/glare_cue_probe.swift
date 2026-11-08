@@ -14,12 +14,12 @@
 //  Build and run:
 //
 //      swiftc -O -o /tmp/glare_cue_probe \
-//        glance/Liveness/GlareCue.swift \
-//        glance/Liveness/GlareCueExtractor.swift \
-//        glance/Liveness/LivenessCues.swift \
-//        glance/Liveness/LivenessScoring.swift \
-//        glance/Liveness/LandmarkGeometry.swift \
-//        glance/Liveness/GeometryLiveness.swift \
+//        Satchel/Liveness/GlareCue.swift \
+//        Satchel/Liveness/GlareCueExtractor.swift \
+//        Satchel/Liveness/LivenessCues.swift \
+//        Satchel/Liveness/LivenessScoring.swift \
+//        Satchel/Liveness/LandmarkGeometry.swift \
+//        Satchel/Liveness/GeometryLiveness.swift \
 //        tools/glare_cue_probe.swift \
 //      && /tmp/glare_cue_probe path/to/live1.jpg path/to/screen1.jpg ...
 //

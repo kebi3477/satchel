@@ -7,26 +7,26 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		601C493C300FFC8400D3DE9D /* glance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = glance.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		601C493C300FFC8400D3DE9D /* Satchel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Satchel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B945412B3F4425C93A56263E /* Exceptions for "glance" folder in "glance" target */ = {
+		B945412B3F4425C93A56263E /* Exceptions for "Satchel" folder in "Satchel" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 601C493B300FFC8400D3DE9D /* glance */;
+			target = 601C493B300FFC8400D3DE9D /* Satchel */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		601C493E300FFC8400D3DE9D /* glance */ = {
+		601C493E300FFC8400D3DE9D /* Satchel */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B945412B3F4425C93A56263E /* Exceptions for "glance" folder in "glance" target */,
+				B945412B3F4425C93A56263E /* Exceptions for "Satchel" folder in "Satchel" target */,
 			);
-			path = glance;
+			path = Satchel;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -45,7 +45,7 @@
 		601C4933300FFC8400D3DE9D = {
 			isa = PBXGroup;
 			children = (
-				601C493E300FFC8400D3DE9D /* glance */,
+				601C493E300FFC8400D3DE9D /* Satchel */,
 				601C493D300FFC8400D3DE9D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,7 +53,7 @@
 		601C493D300FFC8400D3DE9D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				601C493C300FFC8400D3DE9D /* glance.app */,
+				601C493C300FFC8400D3DE9D /* Satchel.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,9 +61,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		601C493B300FFC8400D3DE9D /* glance */ = {
+		601C493B300FFC8400D3DE9D /* Satchel */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 601C4947300FFC8500D3DE9D /* Build configuration list for PBXNativeTarget "glance" */;
+			buildConfigurationList = 601C4947300FFC8500D3DE9D /* Build configuration list for PBXNativeTarget "Satchel" */;
 			buildPhases = (
 				601C4938300FFC8400D3DE9D /* Sources */,
 				601C4939300FFC8400D3DE9D /* Frameworks */,
@@ -74,11 +74,11 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				601C493E300FFC8400D3DE9D /* glance */,
+				601C493E300FFC8400D3DE9D /* Satchel */,
 			);
-			name = glance;
-			productName = glance;
-			productReference = 601C493C300FFC8400D3DE9D /* glance.app */;
+			name = Satchel;
+			productName = Satchel;
+			productReference = 601C493C300FFC8400D3DE9D /* Satchel.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -96,7 +96,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 601C4937300FFC8400D3DE9D /* Build configuration list for PBXProject "glance" */;
+			buildConfigurationList = 601C4937300FFC8400D3DE9D /* Build configuration list for PBXProject "Satchel" */;
 			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -111,7 +111,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				601C493B300FFC8400D3DE9D /* glance */,
+				601C493B300FFC8400D3DE9D /* Satchel */,
 			);
 		};
 /* End PBXProject section */
@@ -262,8 +262,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = glanceicon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = glance/glance.entitlements;
-				SWIFT_OBJC_BRIDGING_HEADER = "glance/glance-Bridging-Header.h";
+				CODE_SIGN_ENTITLEMENTS = Satchel/Satchel.entitlements;
+				SWIFT_OBJC_BRIDGING_HEADER = "Satchel/Satchel-Bridging-Header.h";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
@@ -273,7 +273,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = glance/Info.plist;
+				INFOPLIST_FILE = Satchel/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Satchel은 Mac 잠금을 해제할 때 얼굴을 인식하고, 설정에서 얼굴을 등록하거나 미리 볼 수 있도록 카메라를 사용해요. 모든 처리는 기기 안에서만 이루어져요.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -284,7 +284,6 @@
 				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.kebi.glance;
 				PRODUCT_NAME = Satchel;
-				PRODUCT_MODULE_NAME = glance;
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -300,8 +299,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = glanceicon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = glance/glance.entitlements;
-				SWIFT_OBJC_BRIDGING_HEADER = "glance/glance-Bridging-Header.h";
+				CODE_SIGN_ENTITLEMENTS = Satchel/Satchel.entitlements;
+				SWIFT_OBJC_BRIDGING_HEADER = "Satchel/Satchel-Bridging-Header.h";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
@@ -311,7 +310,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = glance/Info.plist;
+				INFOPLIST_FILE = Satchel/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Satchel은 Mac 잠금을 해제할 때 얼굴을 인식하고, 설정에서 얼굴을 등록하거나 미리 볼 수 있도록 카메라를 사용해요. 모든 처리는 기기 안에서만 이루어져요.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -322,7 +321,6 @@
 				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.kebi.glance;
 				PRODUCT_NAME = Satchel;
-				PRODUCT_MODULE_NAME = glance;
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -336,7 +334,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		601C4937300FFC8400D3DE9D /* Build configuration list for PBXProject "glance" */ = {
+		601C4937300FFC8400D3DE9D /* Build configuration list for PBXProject "Satchel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				601C4945300FFC8500D3DE9D /* Debug */,
@@ -345,7 +343,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		601C4947300FFC8500D3DE9D /* Build configuration list for PBXNativeTarget "glance" */ = {
+		601C4947300FFC8500D3DE9D /* Build configuration list for PBXNativeTarget "Satchel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				601C4948300FFC8500D3DE9D /* Debug */,

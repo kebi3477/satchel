@@ -126,7 +126,7 @@ struct GeneralSettingsPage: View {
                 SettingsCaption(text: launchAtLoginError)
             }
             if hasInheritedXcodePermission {
-                SettingsCaption(text: "Xcode에서 실행 중이에요. 권한 확인이 glance가 아닌 Xcode의 권한 기준으로 이루어지므로 이 상태는 정확하지 않아요. 실제 상태를 보려면 glance.app을 직접 실행해 주세요.")
+                SettingsCaption(text: "Xcode에서 실행 중이에요. 권한 확인이 Satchel이 아닌 Xcode의 권한 기준으로 이루어지므로 이 상태는 정확하지 않아요. 실제 상태를 보려면 Satchel.app을 직접 실행해 주세요.")
             } else if needsInputMonitoring {
                 inputMonitoringNotice()
             }
@@ -236,7 +236,7 @@ struct GeneralSettingsPage: View {
     /// Shown while "On space" is selected but Input Monitoring isn't granted.
     private func inputMonitoringNotice() -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            SettingsCaption(text: "‘스페이스 키’ 조건은 잠금 화면에서 스페이스 키 입력을 감지하기 위해 키보드를 직접 읽으므로 손쉬운 사용 권한이 필요해요. glance가 암호를 입력할 때 쓰는 것과 같은 권한이에요. 개인정보 보호 및 보안 → 손쉬운 사용에서 glance를 켠 다음, glance를 종료하고 다시 열어 주세요.")
+            SettingsCaption(text: "‘스페이스 키’ 조건은 잠금 화면에서 스페이스 키 입력을 감지하기 위해 키보드를 직접 읽으므로 손쉬운 사용 권한이 필요해요. Satchel이 암호를 입력할 때 쓰는 것과 같은 권한이에요. 개인정보 보호 및 보안 → 손쉬운 사용에서 Satchel을 켠 다음, Satchel을 종료하고 다시 열어 주세요.")
             Button("손쉬운 사용 설정 열기") {
                 // Covers the rare install with no Accessibility grant at all.
                 SpaceKeyMonitor.requestInputMonitoringAccess()

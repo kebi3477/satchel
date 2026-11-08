@@ -275,7 +275,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = glance/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Glance는 Mac 잠금을 해제할 때 얼굴을 인식하고, 설정에서 얼굴을 등록하거나 미리 볼 수 있도록 카메라를 사용해요. 모든 처리는 기기 안에서만 이루어져요.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Satchel은 Mac 잠금을 해제할 때 얼굴을 인식하고, 설정에서 얼굴을 등록하거나 미리 볼 수 있도록 카메라를 사용해요. 모든 처리는 기기 안에서만 이루어져요.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -283,7 +283,8 @@
 				);
 				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.kebi.glance;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Satchel;
+				PRODUCT_MODULE_NAME = glance;
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -312,7 +313,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = glance/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Glance는 Mac 잠금을 해제할 때 얼굴을 인식하고, 설정에서 얼굴을 등록하거나 미리 볼 수 있도록 카메라를 사용해요. 모든 처리는 기기 안에서만 이루어져요.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Satchel은 Mac 잠금을 해제할 때 얼굴을 인식하고, 설정에서 얼굴을 등록하거나 미리 볼 수 있도록 카메라를 사용해요. 모든 처리는 기기 안에서만 이루어져요.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -320,7 +321,8 @@
 				);
 				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.kebi.glance;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Satchel;
+				PRODUCT_MODULE_NAME = glance;
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;

@@ -17,7 +17,7 @@ struct IntroStepView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
-                Text("Glance")
+                Text("Satchel")
                     .font(GlanceTheme.Font.title)
                     .foregroundStyle(GlanceTheme.textPrimary)
                 Text("Mac을 위한 얼굴 잠금 해제")
@@ -68,13 +68,13 @@ struct PermissionsStepView: View {
 
             PermissionRow(
                 title: "손쉬운 사용",
-                detail: "Glance가 Mac의 잠금을 해제하도록 허용",
+                detail: "Satchel이 Mac의 잠금을 해제하도록 허용",
                 granted: controller.accessibilityGranted
             ) { controller.grantAccessibility() }
 
             PermissionRow(
                 title: "카메라",
-                detail: "Glance가 얼굴을 인식하도록 허용",
+                detail: "Satchel이 얼굴을 인식하도록 허용",
                 granted: controller.cameraPermission == .granted
             ) { controller.grantCamera() }
 
@@ -108,7 +108,7 @@ struct SecurityNoticeStepView: View {
                 .padding(.top, 25)
                 .padding(.leading, 4)
 
-            Text("Glance는 Apple의 Face ID나 Touch ID만큼 안전하지 않아요.")
+            Text("Satchel은 Apple의 Face ID나 Touch ID만큼 안전하지 않아요.")
                 .font(GlanceTheme.Font.title)
                 .foregroundStyle(GlanceTheme.textPrimary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -433,7 +433,7 @@ struct PasswordStepView: View {
                 .foregroundStyle(GlanceTheme.textPrimary)
                 .padding(.leading, 4)
 
-            Text("Mac의 잠금을 해제하려면 암호가 필요해요. 암호는 암호화되어 기기에 안전하게 저장돼요. Glance는 완전히 오프라인으로 동작하므로 암호가 Mac 밖으로 나가지 않아요.")
+            Text("Mac의 잠금을 해제하려면 암호가 필요해요. 암호는 암호화되어 기기에 안전하게 저장돼요. Satchel은 완전히 오프라인으로 동작하므로 암호가 Mac 밖으로 나가지 않아요.")
                 .font(GlanceTheme.Font.passwordCaption)
                 .foregroundStyle(GlanceTheme.textSecondary)
                 .fixedSize(horizontal: false, vertical: true)

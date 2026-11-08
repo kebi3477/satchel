@@ -43,7 +43,7 @@ final class POCController {
         sessionError = nil
         do {
             try await Task.detached(priority: .userInitiated) {
-                try SecureCredentialManager.unlockSession(reason: "Glance를 설정하거나 사용하려면 인증해 주세요")
+                try SecureCredentialManager.unlockSession(reason: "Satchel을 설정하거나 사용하려면 인증해 주세요")
             }.value
             isSessionUnlocked = true
         } catch {
@@ -92,7 +92,7 @@ final class POCController {
     /// confirms the screen is actually locked.
     func injectStoredPassword(requireAuthoritativeLock: Bool = false) async {
         guard KeystrokeInjector.isAccessibilityTrusted() else {
-            statusMessage = "손쉬운 사용 권한이 없어요. 시스템 설정에서 Glance를 켜 주세요."
+            statusMessage = "손쉬운 사용 권한이 없어요. 시스템 설정에서 Satchel을 켜 주세요."
             return
         }
         guard SecureCredentialManager.isSessionUnlocked else {

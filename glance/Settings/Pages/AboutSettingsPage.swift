@@ -34,7 +34,7 @@ struct AboutSettingsPage: View {
                 .contentShape(Rectangle())
                 .onTapGesture(perform: handleIconTap)
 
-            Text("Glance")
+            Text("Satchel")
                 .font(.system(size: 22, weight: .semibold))
                 .foregroundStyle(SettingsMetrics.textPrimary)
 
@@ -47,10 +47,10 @@ struct AboutSettingsPage: View {
 
         SettingsGroup {
             SettingsActionRowContent(
-                title: "피드백 보내기",
-                buttonTitle: "보내기"
+                title: "Glance(MIT)를 바탕으로 만들었어요",
+                buttonTitle: "원본 보기"
             ) {
-                if let url = URL(string: "https://tryglance.app/feedback") {
+                if let url = URL(string: "https://github.com/jonnyoo/glance") {
                     NSWorkspace.shared.open(url)
                 }
             }

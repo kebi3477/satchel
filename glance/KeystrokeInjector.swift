@@ -16,7 +16,7 @@ enum KeystrokeError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .accessibilityNotGranted:
-            return "손쉬운 사용 권한이 필요해요. 시스템 설정 → 개인정보 보호 및 보안 → 손쉬운 사용에서 Glance를 켜 주세요."
+            return "손쉬운 사용 권한이 필요해요. 시스템 설정 → 개인정보 보호 및 보안 → 손쉬운 사용에서 Satchel을 켜 주세요."
         case .eventCreationFailed:
             return "키 입력용 CGEvent를 만들 수 없어요."
         }

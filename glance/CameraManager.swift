@@ -60,7 +60,7 @@ final class CameraManager: NSObject {
             errorMessage = "카메라 접근 권한이 없어요(상태: \(describe(status))). " +
                 (status == .restricted
                     ? "macOS에서 *제한됨* 상태로 보고하고 있어요. 단순히 사용자가 거부한 것이 아니에요. 보통 스크린 타임 콘텐츠 제한이나 MDM/프로파일 정책이 이 앱의 카메라 접근을 막고 있다는 뜻이며, 제한이 해제되기 전에는 시스템 설정 > 개인정보 보호 및 보안 > 카메라에서 켜도 소용이 없어요."
-                    : "시스템 설정 > 개인정보 보호 및 보안 > 카메라에서 켜 주세요. 목록에 Glance가 없으면 앱을 종료하고 터미널에서 `tccutil reset Camera dev.kebi.glance`를 실행한 다음, 앱을 다시 열어 macOS가 다시 묻도록 해 주세요.")
+                    : "시스템 설정 > 개인정보 보호 및 보안 > 카메라에서 켜 주세요. 목록에 Satchel이 없으면 앱을 종료하고 터미널에서 `tccutil reset Camera dev.kebi.glance`를 실행한 다음, 앱을 다시 열어 macOS가 다시 묻도록 해 주세요.")
             return
         }
 

@@ -122,7 +122,7 @@ struct YourFaceSettingsPage: View {
             SettingsCaption(text: store.loadFailure ?? "이 세션 키로 저장된 데이터를 복호화할 수 없어요.")
                 .multilineTextAlignment(.center)
 
-            SettingsCaption(text: "삭제된 데이터는 없으며 Glance가 이 데이터를 덮어쓰지 않아요. 문제가 해결될 때까지 등록할 수 없어요. Glance를 종료하고 다시 열어 재시도해 주세요. 계속 실패하면 세션 키가 이 데이터와 더 이상 일치하지 않는 것이에요. 암호 탭에서 저장된 암호를 제거해 둘 다 지운 다음 다시 설정해 주세요.")
+            SettingsCaption(text: "삭제된 데이터는 없으며 Satchel이 이 데이터를 덮어쓰지 않아요. 문제가 해결될 때까지 등록할 수 없어요. Satchel을 종료하고 다시 열어 재시도해 주세요. 계속 실패하면 세션 키가 이 데이터와 더 이상 일치하지 않는 것이에요. 암호 탭에서 저장된 암호를 제거해 둘 다 지운 다음 다시 설정해 주세요.")
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity, minHeight: SettingsMetrics.emptyStateMinHeight)
@@ -186,7 +186,7 @@ struct YourFaceSettingsPage: View {
                         .foregroundStyle(SettingsMetrics.textSecondary)
                 }
 
-                Text("여러 사람, 액세서리(예: 안경), 표정, 새로운 조명 환경마다 얼굴을 따로 등록하면 Glance를 함께 쓸 수 있어요. 인식 품질도 좋아져요.")
+                Text("여러 사람, 액세서리(예: 안경), 표정, 새로운 조명 환경마다 얼굴을 따로 등록하면 Satchel을 함께 쓸 수 있어요. 인식 품질도 좋아져요.")
                     .font(.system(size: 12))
                     .foregroundStyle(SettingsMetrics.textTertiary)
                     .fixedSize(horizontal: false, vertical: true)

@@ -1076,7 +1076,7 @@ final class OnboardingController {
 
         do {
             try await Task.detached(priority: .userInitiated) {
-                try SecureCredentialManager.unlockSession(reason: "Glance를 설정하려면 인증해 주세요")
+                try SecureCredentialManager.unlockSession(reason: "Satchel을 설정하려면 인증해 주세요")
             }.value
 
             // Only now that the session key exists can samples be encrypted and saved.

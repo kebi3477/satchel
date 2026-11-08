@@ -1,3 +1,39 @@
+# Satchel
+
+맥 상단(노치·메뉴 막대)에 사는 개인용 유틸리티 모음이에요. [Glance](https://github.com/jonnyoo/glance)(MIT)를 포크해서 만들었어요.
+
+## 기능
+
+- **얼굴 잠금 해제**: 맥 카메라로 얼굴을 인식해 잠금 화면을 풀어요. 노치 아래에 Face ID 스타일 애니메이션과 인식 소리가 나와요.
+- **메뉴 막대 접기**: 화살표 왼쪽에 둔 앱 아이콘을 접었다 펴요(macOS 27 방식).
+- **한국어 UI**
+
+## 원본(Glance)과 다른 점
+
+- Sparkle 자동 업데이트를 제거했어요. 직접 빌드한 코드만 실행돼요.
+- 잠금 화면 애니메이션을 영상 대신 Face ID 스타일 벡터 그래픽으로 바꿨어요.
+- 스캔 소리(유사도에 따라 높아짐), 성공·실패음, 얼굴 등록 효과음을 추가했어요.
+- 메뉴 막대 접기를 추가했어요. [Hidden Bar](https://github.com/dwarvesf/hidden)(MIT)의 방식을 참고했어요.
+
+## 보안 주의
+
+웹캠은 깊이 센서가 없어서 Apple Face ID만큼 안전하지 않아요. 사진은 대체로 막지만 동영상은 확실히 막지 못해요. macOS에는 서드파티 앱이 로그인을 승인하는 API가 없어서, 얼굴이 맞으면 저장해 둔 암호를 잠금 화면에 대신 입력하는 방식으로 동작해요. 편의 기능이지 보안 강화 기능이 아니에요.
+
+## 빌드
+
+- macOS 15 이상, Xcode 26 이상
+- `glance.xcodeproj`를 열고 서명 Team을 본인 계정으로 바꾼 뒤 실행하세요.
+
+## 라이선스와 출처
+
+- MIT © Jonathan Zhou (Glance 원저작자). [LICENSE](LICENSE)
+- 서드파티 고지는 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), 효과음 출처는 [glance/Resources/Sounds/CREDITS.md](glance/Resources/Sounds/CREDITS.md)를 보세요.
+
+---
+
+<details>
+<summary>원본 Glance README</summary>
+
 <h1 align="center">
   <br>
   <a href="https://tryglance.app"><img src="glance/Assets.xcassets/appicon.imageset/appicon.png" alt="Glance" width="150"></a>
@@ -180,3 +216,6 @@ recognition.
 ## License
 
 [MIT](LICENSE) © Jonathan Zhou
+
+
+</details>

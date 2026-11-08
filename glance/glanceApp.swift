@@ -75,6 +75,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         GlanceSettings.shared.bindMenuBarVisibility { [weak self] isVisible in
             self?.setMenuBarVisibility(isVisible)
         }
+        // After Glance's own status item, so the arrow lands just left of it by default.
+        MenuBarCollapser.shared.applySettings()
 
         // SwiftUI can flip the app back to `.regular` while installing scenes even with `.suppressed`; re-assert accessory.
         NSApp.setActivationPolicy(.accessory)

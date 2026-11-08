@@ -181,6 +181,33 @@ struct GeneralSettingsPage: View {
             }
 
             VStack(alignment: .leading, spacing: 8) {
+                SettingsSectionTitle(text: "메뉴 막대 접기")
+                SettingsGroup {
+                    SettingsRowContent(title: "메뉴 막대 접기") {
+                        GlanceToggle(isOn: $settings.menuBarCollapseEnabled)
+                    }
+                    if settings.menuBarCollapseEnabled {
+                        SettingsGroupDivider()
+                        SettingsRowContent(title: "10초 뒤 자동으로 다시 접기") {
+                            GlanceToggle(isOn: Binding(
+                                get: { settings.menuBarAutoCollapseSeconds > 0 },
+                                set: { settings.menuBarAutoCollapseSeconds = $0 ? 10 : 0 }
+                            ))
+                        }
+                    }
+                }
+                Text(MenuBarCollapser.shared.isAvailable
+                     ? "메뉴 막대의 화살표 왼쪽에 있는 앱 아이콘이 접혀요. ⌘ 키를 누른 채 아이콘이나 화살표를 끌어서 접을 아이콘을 정할 수 있어요."
+                     : "이 macOS 버전에서는 메뉴 막대 접기를 사용할 수 없어요.")
+                    .font(.system(size: 11))
+                    .foregroundStyle(SettingsMetrics.textSecondary)
+                    .padding(.horizontal, 4)
+            }
+            .onChange(of: settings.menuBarCollapseEnabled) { _, _ in
+                MenuBarCollapser.shared.applySettings()
+            }
+
+            VStack(alignment: .leading, spacing: 8) {
                 SettingsSectionTitle(text: "애니메이션")
                 SettingsGroup {
                     SettingsRowContent(title: "애니메이션 표시") {

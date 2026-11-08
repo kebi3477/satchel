@@ -116,6 +116,8 @@ final class GlanceSettings {
         static let autoRetryOnce = "GlanceSettings.autoRetryOnce"
         static let hapticFeedbackEnabled = "GlanceSettings.hapticFeedbackEnabled"
         static let soundEnabled = "GlanceSettings.soundEnabled"
+        static let menuBarCollapseEnabled = "GlanceSettings.menuBarCollapseEnabled"
+        static let menuBarAutoCollapseSeconds = "GlanceSettings.menuBarAutoCollapseSeconds"
         static let soundVolume = "GlanceSettings.soundVolume"
         static let showsInMenuBar = "GlanceSettings.showsInMenuBar"
         static let preferredDisplayID = "GlanceSettings.preferredDisplayID"
@@ -218,6 +220,14 @@ final class GlanceSettings {
     /// Scan feedback sounds (see ScanSoundPlayer). Plays at the lock screen, so it's user-switchable.
     var soundEnabled: Bool {
         didSet { defaults.set(soundEnabled, forKey: Key.soundEnabled) }
+    }
+    /// Hidden Bar–style collapsing of other apps' menu-bar icons (see MenuBarCollapser).
+    var menuBarCollapseEnabled: Bool {
+        didSet { defaults.set(menuBarCollapseEnabled, forKey: Key.menuBarCollapseEnabled) }
+    }
+    /// Seconds after expanding before the bar folds itself again; 0 = never.
+    var menuBarAutoCollapseSeconds: Int {
+        didSet { defaults.set(menuBarAutoCollapseSeconds, forKey: Key.menuBarAutoCollapseSeconds) }
     }
     /// 0…10 step scale; scaled into a gain by ScanSoundPlayer.
     var soundVolume: Int {
@@ -343,6 +353,8 @@ final class GlanceSettings {
         autoRetryOnce = defaults.object(forKey: Key.autoRetryOnce) as? Bool ?? false
         hapticFeedbackEnabled = defaults.object(forKey: Key.hapticFeedbackEnabled) as? Bool ?? true
         soundEnabled = defaults.object(forKey: Key.soundEnabled) as? Bool ?? true
+        menuBarCollapseEnabled = defaults.object(forKey: Key.menuBarCollapseEnabled) as? Bool ?? true
+        menuBarAutoCollapseSeconds = defaults.object(forKey: Key.menuBarAutoCollapseSeconds) as? Int ?? 10
         soundVolume = (defaults.object(forKey: Key.soundVolume) as? Int)
             .map { min(max($0, Self.soundVolumeRange.lowerBound), Self.soundVolumeRange.upperBound) } ?? 6
         // Keep the icon available for existing and new installs unless the

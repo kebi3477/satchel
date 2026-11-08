@@ -106,6 +106,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         } else if let statusItem {
             NSStatusBar.system.removeStatusItem(statusItem)
             self.statusItem = nil
+            MenuBarCollapser.shared.ownIconItem = nil
             sessionMenuItem = nil
         }
     }
@@ -144,6 +145,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
         item.menu = menu
         statusItem = item
+        MenuBarCollapser.shared.ownIconItem = item
 
         updateSessionMenuItem()
     }

@@ -32,6 +32,11 @@ final class MenuBarCollapser: NSObject {
     ]
 
     private var arrowItem: NSStatusItem?
+    /// Glance's own menu-bar icon. The native restriction works per app, so it can't hide
+    /// this without also hiding the arrow; instead it's shrunk to zero width while collapsed
+    /// whenever the user has ⌘-dragged it left of the arrow.
+    weak var ownIconItem: NSStatusItem?
+    private var isOwnIconHidden = false
     private var assertion: AnyObject?
     /// Bumped whenever an in-flight activation must no longer win.
     private var generation = 0
@@ -74,6 +79,7 @@ final class MenuBarCollapser: NSObject {
 
     private func uninstall() {
         autoCollapseTimer?.invalidate()
+        restoreOwnIcon()
         releaseAssertion()
         isCollapsed = false
         if let arrowItem {
@@ -150,6 +156,7 @@ final class MenuBarCollapser: NSObject {
             DispatchQueue.main.async { [weak self] in
                 guard let self, generation == self.generation else { return }
                 let visibleBundles = Self.visibleBundles(items: items, boundaryMidX: boundary.midX)
+                self.hideOwnIconIfLeftOf(boundaryMidX: boundary.midX)
                 self.activate(allowing: visibleBundles, generation: generation)
             }
         }
@@ -157,6 +164,7 @@ final class MenuBarCollapser: NSObject {
 
     func expand() {
         generation += 1
+        restoreOwnIcon()
         releaseAssertion()
         isCollapsed = false
         isBusy = false
@@ -183,11 +191,27 @@ final class MenuBarCollapser: NSObject {
             } else {
                 // Fail open: never leave icons hidden after an error.
                 NSLog("MenuBarCollapser: activation failed: \(error?.localizedDescription ?? "unknown")")
+                self.restoreOwnIcon()
                 self.releaseAssertion()
                 self.isCollapsed = false
             }
             self.updateArrowImage()
         }
+    }
+
+    // Zero length rather than isVisible = false, which would make macOS forget the
+    // position the user ⌘-dragged it to.
+    private func hideOwnIconIfLeftOf(boundaryMidX: CGFloat) {
+        guard let ownIconItem, let iconX = ownIconItem.button?.window?.frame.midX,
+              iconX < boundaryMidX else { return }
+        ownIconItem.length = 0
+        isOwnIconHidden = true
+    }
+
+    private func restoreOwnIcon() {
+        guard isOwnIconHidden else { return }
+        ownIconItem?.length = NSStatusItem.squareLength
+        isOwnIconHidden = false
     }
 
     private func releaseAssertion() {

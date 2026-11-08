@@ -88,8 +88,42 @@ final class MenuBarCollapser: NSObject {
         guard !isBusy else { return }
         if isCollapsed {
             expand()
+            // Icons left of the arrow usually don't fit beside the notch, so macOS 27 tucks
+            // them into its own "show hidden menu bar items" (») button. Press it for the
+            // user so one click on our arrow actually reveals them.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [weak self] in
+                self?.openSystemOverflowIfPresent()
+            }
         } else {
             collapse()
+        }
+    }
+
+    /// macOS's overflow button belongs to MenuBarAgent and appears just left of our arrow
+    /// only when some items don't fit. Identified by owner + position, not by its
+    /// (localized) title.
+    private func openSystemOverflowIfPresent() {
+        guard !isCollapsed, let arrowX = arrowItem?.button?.window?.frame.midX,
+              let agent = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.MenuBarAgent").first
+        else { return }
+        let element = AXUIElementCreateApplication(agent.processIdentifier)
+        AXUIElementSetMessagingTimeout(element, 0.2)
+        var barValue: CFTypeRef?
+        guard AXUIElementCopyAttributeValue(element, "AXExtrasMenuBar" as CFString, &barValue) == .success,
+              let bar = barValue else { return }
+        var childrenValue: CFTypeRef?
+        guard AXUIElementCopyAttributeValue(bar as! AXUIElement, kAXChildrenAttribute as CFString, &childrenValue) == .success,
+              let children = childrenValue as? [AXUIElement] else { return }
+        let overflow = children.first { child in
+            var positionValue: CFTypeRef?
+            guard AXUIElementCopyAttributeValue(child, kAXPositionAttribute as CFString, &positionValue) == .success
+            else { return false }
+            var position = CGPoint.zero
+            AXValueGetValue(positionValue as! AXValue, .cgPoint, &position)
+            return position.x < arrowX
+        }
+        if let overflow {
+            AXUIElementPerformAction(overflow, kAXPressAction as CFString)
         }
     }
 

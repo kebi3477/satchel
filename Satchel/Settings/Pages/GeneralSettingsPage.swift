@@ -208,6 +208,32 @@ struct GeneralSettingsPage: View {
             }
 
             VStack(alignment: .leading, spacing: 8) {
+                SettingsSectionTitle(text: "창 정리")
+                SettingsGroup {
+                    SettingsRowContent(title: "단축키로 창 배치") {
+                        GlanceToggle(isOn: $settings.windowSnapEnabled)
+                    }
+                    if settings.windowSnapEnabled {
+                        ForEach(WindowSnapper.Action.allCases, id: \.self) { action in
+                            SettingsGroupDivider()
+                            SettingsRowContent(title: action.title) {
+                                Text(action.shortcutLabel)
+                                    .font(.system(size: 13, design: .rounded))
+                                    .foregroundStyle(SettingsMetrics.textSecondary)
+                            }
+                        }
+                    }
+                }
+                Text("지금 앞에 있는 창을 화면의 반이나 전체로 옮겨요. 다른 앱이 같은 단축키를 쓰고 있으면 그 단축키는 동작하지 않아요.")
+                    .font(.system(size: 11))
+                    .foregroundStyle(SettingsMetrics.textSecondary)
+                    .padding(.horizontal, 4)
+            }
+            .onChange(of: settings.windowSnapEnabled) { _, _ in
+                WindowSnapper.shared.applySettings()
+            }
+
+            VStack(alignment: .leading, spacing: 8) {
                 SettingsSectionTitle(text: "애니메이션")
                 SettingsGroup {
                     SettingsRowContent(title: "애니메이션 표시") {

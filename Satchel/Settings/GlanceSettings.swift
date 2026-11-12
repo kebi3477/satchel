@@ -117,6 +117,7 @@ final class GlanceSettings {
         static let hapticFeedbackEnabled = "GlanceSettings.hapticFeedbackEnabled"
         static let soundEnabled = "GlanceSettings.soundEnabled"
         static let menuBarCollapseEnabled = "GlanceSettings.menuBarCollapseEnabled"
+        static let windowSnapEnabled = "GlanceSettings.windowSnapEnabled"
         static let menuBarAutoCollapseSeconds = "GlanceSettings.menuBarAutoCollapseSeconds"
         static let soundVolume = "GlanceSettings.soundVolume"
         static let showsInMenuBar = "GlanceSettings.showsInMenuBar"
@@ -224,6 +225,10 @@ final class GlanceSettings {
     /// Hidden Bar–style collapsing of other apps' menu-bar icons (see MenuBarCollapser).
     var menuBarCollapseEnabled: Bool {
         didSet { defaults.set(menuBarCollapseEnabled, forKey: Key.menuBarCollapseEnabled) }
+    }
+    /// Rectangle-style ⌃⌥-arrow window tiling (see WindowSnapper).
+    var windowSnapEnabled: Bool {
+        didSet { defaults.set(windowSnapEnabled, forKey: Key.windowSnapEnabled) }
     }
     /// Seconds after expanding before the bar folds itself again; 0 = never.
     var menuBarAutoCollapseSeconds: Int {
@@ -354,6 +359,7 @@ final class GlanceSettings {
         hapticFeedbackEnabled = defaults.object(forKey: Key.hapticFeedbackEnabled) as? Bool ?? true
         soundEnabled = defaults.object(forKey: Key.soundEnabled) as? Bool ?? true
         menuBarCollapseEnabled = defaults.object(forKey: Key.menuBarCollapseEnabled) as? Bool ?? true
+        windowSnapEnabled = defaults.object(forKey: Key.windowSnapEnabled) as? Bool ?? true
         menuBarAutoCollapseSeconds = defaults.object(forKey: Key.menuBarAutoCollapseSeconds) as? Int ?? 10
         soundVolume = (defaults.object(forKey: Key.soundVolume) as? Int)
             .map { min(max($0, Self.soundVolumeRange.lowerBound), Self.soundVolumeRange.upperBound) } ?? 6

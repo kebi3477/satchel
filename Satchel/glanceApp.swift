@@ -77,6 +77,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         // After Glance's own status item, so the arrow lands just left of it by default.
         MenuBarCollapser.shared.applySettings()
+        WindowSnapper.shared.applySettings()
 
         // SwiftUI can flip the app back to `.regular` while installing scenes even with `.suppressed`; re-assert accessory.
         NSApp.setActivationPolicy(.accessory)
